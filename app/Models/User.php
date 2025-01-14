@@ -21,7 +21,23 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'program',
+        'section',
+        'professor',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($user) {
+            // Set professor based on the email
+            $user->professor = strpos($user->email, 'fatima') === false;
+        });
+
+        static::updating(function ($user) {
+            // If you want to update it when the email changes
+            $user->professor = strpos($user->email, 'fatima') === false;
+        });
+    }
 
     /**
      * The attributes that should be hidden for serialization.
