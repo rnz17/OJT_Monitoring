@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'stud_id',
         'password',
         'program',
         'section',
@@ -30,12 +31,12 @@ class User extends Authenticatable
     {
         static::creating(function ($user) {
             // Set professor based on the email
-            $user->professor = strpos($user->email, 'fatima') === false;
+            $user->professor = strpos($user->email, 'student') === false;
         });
 
         static::updating(function ($user) {
             // If you want to update it when the email changes
-            $user->professor = strpos($user->email, 'fatima') === false;
+            $user->professor = strpos($user->email, 'student') === false;
         });
     }
 

@@ -21,4 +21,6 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
-vite.config.js
+package.json
+package-lock.json
+vite.config.js 
