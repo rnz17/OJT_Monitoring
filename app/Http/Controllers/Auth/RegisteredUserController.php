@@ -28,23 +28,39 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+{
+    // Add validation for section, program, and stud_id
+    $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        'program' => ['required', 'string'],  // Validate program
+        'section' => ['required', 'string'],  // Validate section
+        'stud_id' => ['required', 'string', 'unique:users'],  // Validate student ID (ensure it's unique)
+    ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    // Create the user with the new fields
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'program' => $request->program,  // Add program
+        'section' => $request->section,  // Add section
+        'stud_id' => $request->stud_id,  // Add student ID
+    ]);
 
-        event(new Registered($user));
+   // Trigger the registered event
+    event(new Registered($user));
 
-        Auth::login($user);
+    // Log the user out before logging in again
+    Auth::logout();
 
-        return redirect(route('dashboard', absolute: false));
+    // Log the user in again
+    Auth::login($user);
+
+    // Redirect to the login page (or any other page you'd like after logging out)
+    return redirect(route('login', absolute: false));
+
     }
+
 }
