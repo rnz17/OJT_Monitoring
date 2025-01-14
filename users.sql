@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2025 at 12:35 PM
+-- Generation Time: Jan 14, 2025 at 12:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `kingland`
+-- Database: `ojt_monitoring`
 --
 
 -- --------------------------------------------------------
@@ -30,21 +30,26 @@ SET time_zone = "+00:00";
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
+  `stud_id` int(22) NOT NULL,
+  `program` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
+  `professor` tinyint(1) NOT NULL DEFAULT 0,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `admin_verified_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `admin_verified_at`) VALUES
-(3, 'Renzo Gregorio', 'gregoriorenzo05@gmail.com', '2025-01-09 23:43:43', '$2y$12$LIWYp0OUi7kC7693.vqzIOen0Cf2xV0h1xEQXmzlkEQ4AWH3t.bcG', 'PSM6lhTOjaWSNLXkaIsUOcRgZOj0V8ecPHBBuiQEGSF5TI83GohIhPQYLd9x', '2025-01-09 23:31:32', '2025-01-10 00:37:22', '2025-01-10 00:37:22');
+INSERT INTO `users` (`id`, `name`, `stud_id`, `program`, `section`, `email`, `password`, `professor`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Renzo Gregorio', 194417625, 'CS', 'section 1', 'rmgregorio3@student.fatima.edu.ph', '$2y$12$.F6gM.aoZlNsMAE.7TRJSumz.r1Q7G7h.MS5zLyAz3MWbpWHdmitS', 0, NULL, NULL, '2025-01-14 03:01:01', '2025-01-14 03:01:01'),
+(2, 'Prof Renzo', 194417626, 'IT', 'section 1', 'rmgregorio3@fatima.edu.ph', '$2y$12$CoHLjDl8plxT0LARmBVXB.kdB.zHVuYLZmmxxrpRSnfKqM0lC3f0e', 1, NULL, NULL, '2025-01-14 03:15:51', '2025-01-14 03:15:51'),
+(3, 'testers', 12341234, 'IT', 'section 1', 'test@fatima.edu.ph', '$2y$12$DDi9NQWIcqp9YCuohgPgLug5/1c1ojBm4dEMHSZ8XUd7mv29XUzNm', 1, NULL, NULL, '2025-01-14 03:45:01', '2025-01-14 03:45:01');
 
 --
 -- Indexes for dumped tables
@@ -55,7 +60,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD UNIQUE KEY `users_stud_id_unique` (`stud_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -65,7 +71,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
