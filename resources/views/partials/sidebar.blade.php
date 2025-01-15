@@ -30,13 +30,7 @@
             </div>
             <span>Files</span>
         </a>
-        <a href="#" class="flex items-center space-x-3 text-pink-800 hover:text-pink-600">
-            <div class="w-6 h-6 flex justify-center items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-            </div>
-            <span>Log Out</span>
-        </a>
+        <!-- stylan mo nalang pabs sa may partials.logout may function na kasi yan -->
+        @include('partials.logout')
     </div>
 </div>
