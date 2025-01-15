@@ -18,7 +18,7 @@ class ProfileController extends Controller
     {
         $users = User::all();
 
-        return view('admin.landing', ['users' => $users]);
+        return view('admin.dashboard', ['users' => $users]);
 
     }
     /**
