@@ -6,10 +6,7 @@
 
     <!-- Profile -->
     <a href="{{route('admin.profile')}}" class="flex items-center space-x-3 mb-6">
-        <div class="rounded-full bg-pink-300 h-12 w-12 flex items-center justify-center">
-            <span class="text-white text-lg font-semibold">G</span>
-        </div>
-        <span class="text-pink-800 font-medium">Gian Christian</span>
+        <span class="text-pink-800 font-medium">{{ Auth::user()->name }}</span>
     </a>
 
     <!-- Menu Items -->
