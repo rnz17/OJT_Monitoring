@@ -17,8 +17,13 @@ class ProfileController extends Controller
     public function table()
     {
         $users = User::all();
+        $columns = ['stud_id', 'name', 'program', 'section', 'email', 'acad_yr']; // specify the columns you want
+        $users = User::select($columns)->get();
 
-        return view('admin.dashboard', ['users' => $users]);
+        return view('admin.dashboard', [
+            'users' => $users,
+            'columns' => $columns
+        ]);
 
     }
     /**
