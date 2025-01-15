@@ -25,7 +25,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 4v16c0 1.104.896 2 2 2h10c1.104 0 2-.896 2-2V4c0-1.104-.896-2-2-2H5c-1.104 0-2 .896-2 2zM16 11H8m0-3h8m0 6H8" />
                 </svg>
             </div>
-            <span>Files</span>
+            <span>Section</span>
         </a>
         <!-- stylan mo nalang pabs sa may partials.logout may function na kasi yan -->
         @include('partials.logout')
