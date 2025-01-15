@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2025 at 08:09 AM
+-- Generation Time: Jan 15, 2025 at 02:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
-  `stud_id` int(22) NOT NULL,
+  `stud_id` bigint(20) NOT NULL,
   `program` varchar(255) DEFAULT NULL,
   `section` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
@@ -49,8 +49,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `stud_id`, `program`, `section`, `email`, `acad_yr`, `password`, `professor`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Renzo Gregorio', 194417625, 'CS', 'section 1', 'rmgregorio3@student.fatima.edu.ph', '2024-2025', '$2y$12$.F6gM.aoZlNsMAE.7TRJSumz.r1Q7G7h.MS5zLyAz3MWbpWHdmitS', 0, NULL, NULL, '2025-01-14 03:01:01', '2025-01-14 03:01:01'),
-(2, 'Prof Renzo', 194417626, 'IT', 'section 1', 'rmgregorio3@fatima.edu.ph', NULL, '$2y$12$CoHLjDl8plxT0LARmBVXB.kdB.zHVuYLZmmxxrpRSnfKqM0lC3f0e', 1, NULL, NULL, '2025-01-14 03:15:51', '2025-01-14 03:15:51'),
-(3, 'testers', 12341234, 'IT', 'section 1', 'test@fatima.edu.ph', NULL, '$2y$12$DDi9NQWIcqp9YCuohgPgLug5/1c1ojBm4dEMHSZ8XUd7mv29XUzNm', 1, NULL, NULL, '2025-01-14 03:45:01', '2025-01-14 03:45:01');
+(2, 'Professor Renzo', 194417626, 'IT', 'section 1', 'rmgregorio3@fatima.edu.ph', NULL, '$2y$12$CoHLjDl8plxT0LARmBVXB.kdB.zHVuYLZmmxxrpRSnfKqM0lC3f0e', 1, NULL, NULL, '2025-01-14 03:15:51', '2025-01-14 23:32:39'),
+(3, 'testers', 12341234, 'IT', 'section 1', 'test@fatima.edu.ph', NULL, '$2y$12$DDi9NQWIcqp9YCuohgPgLug5/1c1ojBm4dEMHSZ8XUd7mv29XUzNm', 1, NULL, NULL, '2025-01-14 03:45:01', '2025-01-14 03:45:01'),
+(4, 'student 1', 11112222, 'EMC', 'section 1', 'sample@student.fatima.edu.ph', NULL, '$2y$12$zzDkKfkeg.N2idp56SeBmODINOrRZwXqnCdxt1Hn45meJ5JXwT1zq', 0, NULL, NULL, '2025-01-15 00:29:23', '2025-01-15 00:29:23');
 
 --
 -- Indexes for dumped tables
@@ -72,7 +73,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
