@@ -1,7 +1,8 @@
 <div class="flex flex-col h-screen bg-[#F0E6E6] w-64 py-6 px-4 rounded-lg shadow-lg">
     <!-- Logo -->
     <div class="flex justify-center mb-8">
-        <img src="logo.png" alt="Logo" class="h-16 w-auto">
+        <img src='images/CCS LOGO.png' class="w-16 h-16 object-contain">
+
     </div>
 
     <!-- Profile -->
@@ -25,7 +26,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 4v16c0 1.104.896 2 2 2h10c1.104 0 2-.896 2-2V4c0-1.104-.896-2-2-2H5c-1.104 0-2 .896-2 2zM16 11H8m0-3h8m0 6H8" />
                 </svg>
             </div>
-            <span>Section</span>
+            <span>Files</span>
         </a>
         <!-- stylan mo nalang pabs sa may partials.logout may function na kasi yan -->
         @include('partials.logout')
