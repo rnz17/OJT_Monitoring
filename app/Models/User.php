@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'stud_id',
+        'acad_yr',
         'password',
         'program',
         'section',
