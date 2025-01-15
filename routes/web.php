@@ -12,7 +12,8 @@ Route::get('/register', function () {return view('auth.register');})->name('regi
 
 // ADMIN SIDE
 
-    Route::view('/admin','admin.dashboard')->name('admin.landing');
+    Route::get('/admin', [ProfileController::class, 'table'])->name('admin.landing');
+    Route::view('/admin/profile','admin.account')->name('admin.profile');
 
     
 // CLIENT SIDE
