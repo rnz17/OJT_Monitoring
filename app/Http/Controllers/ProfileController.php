@@ -23,14 +23,16 @@ class ProfileController extends Controller
         // Static columns
         $staticColumns = ['stud_id', 'name', 'program', 'section', 'email', 'acad_yr'];
 
-        // Fetch dynamic columns from the database
+        // Fetch dynamic columns from the database (getting only the column_name)
         $dynamicColumns = Column::pluck('column_name')->toArray();
 
         // Merge static and dynamic columns
         $columns = array_merge($staticColumns, $dynamicColumns);
 
-        // get files
-        $files = Column::all();
+        // Get files (we'll use this for fetching data from the `files` table)
+        $files = File::all();
+
+        $fileUp = Column::all();
 
         // Fetch the authenticated user's data
         $user = User::select($staticColumns)
@@ -42,23 +44,31 @@ class ProfileController extends Controller
         $todo = [];
 
         // Check each dynamic column value for the user
-        foreach ($dynamicColumns as $column) {
-            // Assume these dynamic column values are stored in the `columns` table and check file_path
-            $columnRecord = Column::where('id', $column)->first(); // Get the column record by column ID
-            
-            // Check if file_path in the column record is not null
-            if ($columnRecord && $columnRecord->file_path !== null) {
-                $done[] = $column; // Add to $done if file_path is not null
-            } else {
-                $todo[] = $column; // Add to $todo if file_path is null
+        foreach ($dynamicColumns as $columnName) {
+            // Find the column record from the `columns` table by the column_name
+            $column = Column::where('column_name', $columnName)->first();
+
+            if ($column) {
+                // Now find the corresponding file record in the `files` table using the column's id
+                $fileRecord = File::where('column_id', $column->id)->first();
+
+                // Check if file_record exists and if file_path is not null
+                if ($fileRecord && $fileRecord->file_path !== null && $fileRecord->student_id == Auth::user()->stud_id) {
+                    // Add file_path to $done if file_path is not null
+                    $done[] = $fileRecord->file_path;
+                } else {
+                    // Add to $todo if file_path is null
+                    $todo[] = $columnName;
+                }
             }
         }
 
-
+        // Return the view with the necessary data
         return view('client.dashboard', [
             'user' => $user,
             'columns' => $columns,
             'files' => $files,
+            'fileUp' => $fileUp,
             'done' => $done,
             'todo' => $todo
         ]);
@@ -70,44 +80,63 @@ class ProfileController extends Controller
     {
         // Fixed columns
         $staticColumns = ['stud_id', 'name', 'program', 'section', 'email', 'acad_yr'];
-
-        // Fetch dynamic columns from the database
+    
+        // Fetch dynamic columns from the database (with column names only)
         $dynamicColumns = \App\Models\Column::pluck('column_name')->toArray();
-
+    
         // Merge static and dynamic columns
         $columns = array_merge($staticColumns, $dynamicColumns);
-
+    
         // Start query for users (students)
-        $query = \App\Models\User::select($staticColumns)->where('professor', 0);
-
+        $query = \App\Models\User::select($staticColumns);
+    
         // Search filter: Apply search condition if a search term is provided
         if ($request->has('search') && $request->search != '') {
             $searchTerm = $request->search;
             $query->where(function ($q) use ($searchTerm) {
                 $q->where('stud_id', 'like', "%$searchTerm%")
-                ->orWhere('name', 'like', "%$searchTerm%")
-                ->orWhere('section', 'like', "%$searchTerm%")
-                ->orWhere('email', 'like', "%$searchTerm%");
+                    ->orWhere('name', 'like', "%$searchTerm%")
+                    ->orWhere('section', 'like', "%$searchTerm%")
+                    ->orWhere('email', 'like', "%$searchTerm%");
             });
         }
-
+    
         // Program filter: Apply program filter if a program is selected
         if ($request->has('program') && $request->program != '') {
             $query->where('program', $request->program);
         }
-
+    
         // Section filter: Apply section filter if a section is selected
         if ($request->has('section') && $request->section != '') {
             $query->where('section', $request->section);
         }
-
-        // Fetch filtered users
-        $users = $query->get();
-
+    
+        // Fetch users (students)
+        $users = $query->where('professor', 0)->get();
+    
+        // Loop through each user to fetch file paths for dynamic columns
+        foreach ($users as $user) {
+            // Loop through dynamic columns and add file_path for each column
+            foreach ($dynamicColumns as $columnName) {
+                // Get the column_id for the current dynamic column name
+                $column = \App\Models\Column::where('column_name', $columnName)->first();
+                if ($column) {
+                    // Get the file associated with the dynamic column and student (matching stud_id)
+                    $file = \App\Models\File::where('column_id', $column->id)
+                                            ->where('student_id', $user->stud_id) // Match student_id with stud_id
+                                            ->first();
+    
+                    // If a file exists, assign the file_path to the dynamic column of the user
+                    $user->$columnName = $file ? $file->file_path : null;
+                }
+            }
+        }
+    
         // Fetch all programs and sections for the filter options
         $programs = Program::all();
         $sections = Section::all();
-
+    
+    
         // Return the view with users and filter data
         return view('admin.dashboard', [
             'users' => $users,
@@ -119,6 +148,9 @@ class ProfileController extends Controller
             'sectionFilter' => $request->section
         ]);
     }
+    
+
+
 
 
     /**
