@@ -8,8 +8,8 @@
             <table class="table-auto w-full">
                 <thead>
                     <tr>
-                        <th class="border border-black px-4 py-2">Column Name</th>
-                        <th class="border border-black px-4 py-2">Column Type</th>
+                        <th class="border border-black px-4 py-2">File Name</th>
+                        <th class="border border-black px-4 py-2">File Type</th>
                     </tr>
                 </thead>
                 <tbody>

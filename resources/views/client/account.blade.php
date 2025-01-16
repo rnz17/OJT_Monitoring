@@ -1,61 +1,58 @@
 @include('partials.head')
 @include('partials.sidebar')
 
-<div class ="w-full bg-red-300">
-    <!-- Main container for centering content both vertically and horizontally -->
-        <div class="flex justify-center items-center min-h-screen bg-gray-100">
-            
-            <!-- Container for profile sections side by side -->
-            <div class="flex justify-center gap-4 w-full max-w-6xl">
-                <!-- Profile Information Section -->
-                <div class="bg-[#F6A8A8] p-6 rounded-lg shadow-lg w-1/2">
-                    <!-- Title of the Profile Information section -->
-                    <h2 class="text-2xl font-semibold mb-4">Profile Information</h2>
-                    <!-- Description of the Profile Information section -->
-                    <p class="mb-4">Update your account's profile information and email address.</p>
-                    <form action="{{ route('profile.update') }}" method="post">
-                        @csrf
-                        @method('patch')
-                        <!-- Label and input for Name -->
-                        <label for="name" class="block mb-2">Name</label>
-                        <input type="text" id="name" name="name" value="{{ Auth::user()->name }}" class="border p-2 w-full mb-4 rounded">
-                        <!-- Label and input for Email -->
-                        <label for="email" class="block mb-2">Email</label>
-                        <input type="email" id="email" name="email" value="{{ Auth::user()->email }}" class="border p-2 w-full mb-4 rounded">
-                        <!-- Custom Save button -->
-                        <button type="submit" class="bg-red-950 text-red-400 border border-red-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
-                            <span class="bg-red-400 shadow-red-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
-                            Save
-                        </button>
-                    </form>
-                </div>
+<div class="w-full bg-pink-100 p-8">
+  <div class="grid grid-cols-2 gap-6">
+    <!-- Account Information Section -->
+    <div class="col-span-2 bg-white p-6 rounded-lg shadow">
+      <h2 class="font-semibold text-gray-700 mb-4 flex items-center">
+        <span class="mr-2">📋</span> Account Information
+      </h2>
+      <div class="grid grid-cols-2 gap-4">
+        <input type="text" placeholder="First Name" class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+        <input type="email" placeholder="Email" class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+        <input type="text" placeholder="Middle Name" class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+        <input type="text" placeholder="Program or Section" class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+        <input type="text" placeholder="Last Name" class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+        <input type="text" placeholder="Student Number" class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+      </div>
+      <div class="mt-4 flex justify-end">
+        <button class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400">
+          Confirm Changes
+        </button>
+      </div>
+    </div>
 
-                <!-- Password Update Section -->
-                <div class="bg-[#F6A8A8] p-6 rounded-lg shadow-lg w-1/2">
-                    <!-- Title of the Password Update section -->
-                    <h2 class="text-2xl font-semibold mb-4">Password Update</h2>
-                    <!-- Description of the Password Update section -->
-                    <p class="mb-4">Ensure your account is using a long random password to stay secure.</p>
-                    <form action="{{ route('profile.update') }}" method="post">
-                        @csrf
-                        @method('patch')
-                        <!-- Label and input for Current Password -->
-                        <label for="current-password" class="block mb-2">Current Password</label>
-                        <input type="password" id="current-password" name="current-password" placeholder="Enter current password" class="border p-2 w-full mb-4 rounded">
-                        <!-- Label and input for New Password -->
-                        <label for="new-password" class="block mb-2">New Password</label>
-                        <input type="password" id="new-password" name="new-password" placeholder="Enter new password" class="border p-2 w-full mb-4 rounded">
-                        <!-- Label and input for Confirm Password -->
-                        <label for="confirm-password" class="block mb-2">Confirm Password</label>
-                        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm new password" class="border p-2 w-full mb-4 rounded">
-                        <!-- Custom Save button -->
-                        <button type="submit" class="bg-red-950 text-red-400 border border-red-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
-                            <span class="bg-red-400 shadow-red-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
-                            Save
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <!-- Change Password Section -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h2 class="font-semibold text-gray-700 mb-4 flex items-center">
+        <span class="mr-2">🔑</span> Change Password
+      </h2>
+      <div class="space-y-4">
+        <input type="password" placeholder="Current Password" class="p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-pink-500">
+        <input type="password" placeholder="New Password" class="p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-pink-500">
+        <input type="password" placeholder="Last Name" class="p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-pink-500">
+      </div>
+      <div class="mt-4 flex justify-end">
+        <button class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400">
+          Confirm
+        </button>
+      </div>
+    </div>
 
+    <!-- Change Profile Picture Section -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h2 class="font-semibold text-gray-700 mb-4 flex items-center">
+        <span class="mr-2">📷</span> Change Profile Picture
+      </h2>
+      <div class="flex items-center justify-center bg-gray-100 border border-gray-300 rounded-lg h-48">
+        <span class="text-gray-400">Upload Picture</span>
+      </div>
+      <div class="mt-4 flex justify-end">
+        <button class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400">
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

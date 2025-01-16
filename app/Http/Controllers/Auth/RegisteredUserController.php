@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+use App\Models\Program;
+use App\Models\Section;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -19,7 +22,13 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $programs = Program::all();
+        $sections = Section::all();
+
+        return view('auth.register', [
+            'programs' => $programs,
+            'sections' => $sections,
+        ]);
     }
 
     /**
@@ -34,8 +43,8 @@ class RegisteredUserController extends Controller
         'name' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
         'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        'program' => ['required', 'string'],  // Validate program
-        'section' => ['required', 'string'],  // Validate section
+        'program' => ['nullable', 'string'],  // Validate program
+        'section' => ['nullable', 'string'],  // Validate section
         'stud_id' => ['required', 'string', 'unique:users'],  // Validate student ID (ensure it's unique)
     ]);
 

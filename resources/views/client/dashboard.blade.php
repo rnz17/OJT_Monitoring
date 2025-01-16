@@ -1,78 +1,91 @@
 @include('partials.head')
 @include('partials.sidebar')
 
-<div class ="w-full">
-
-    <div class="table-container w-full overflow-x-auto m-auto p-4">
-        <!-- di pa nag uupdate ung table at ung todo and done -->
-        <table class="min-w-full bg-white">
-            <thead>
-                <tr>
-                    @foreach( $columns as $column)
-                        <th class="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                            {{ $column }}
-                        </th>
-                    @endforeach
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    @foreach($columns as $column)
-                        <td class="py-2 px-4 border-b border-gray-200"> {{ $user[$column] ?? 'N/A' }} </td>
-                    @endforeach
-                </tr>
-                
-            </tbody>
-        </table>
+<div class="w-full bg-pink-100 p-8">
+  <div class="grid grid-cols-2 gap-6 mb-6">
+    <!-- Notification Section -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h2 class="font-semibold text-gray-700 mb-4">Notification</h2>
+      <ul class="space-y-2">
+        <li class="text-gray-500">📌 Please finish requirement...</li>
+        <li class="text-gray-500">📌 Please finish requirement...</li>
+        <li class="text-gray-500">📌 Please finish requirement...</li>
+        <li class="text-gray-500">📌 Please finish requirement...</li>
+        <li class="text-gray-500">📌 Please finish requirement...</li>
+      </ul>
+    </div>
+    
+    <!-- Templates Section -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h2 class="font-semibold text-gray-700 mb-4">Templates</h2>
+      <ul class="space-y-2">
+        <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
+        <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
+        <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
+        <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
+      </ul>
     </div>
 
-    <!-- file summary -->
-        <div class="flex flex-wrap text-center py-32">
-            <div class="w-[55%] overflow-x-auto m-auto p-4 bg-red-300 border border-black">
-                @foreach($todo as $file)
-                    <div class="flex w-3/4 m-auto">
-                        <li class="m-auto">{{ $file }}</li>
-                    </div>
-                @endforeach
-            </div>
-            <div class="w-[40%] overflow-x-auto m-auto p-4 bg-red-300 border border-black">
-                @if(count($done) >= 1)
-                    @foreach($done as $file)
-                        <div class="flex w-3/4 m-auto">
-                            <li class="m-auto">{{ $file }}</li>
-                        </div>
-                    @endforeach
-                @else
-                    <div class="flex w-3/4 m-auto">
-                        <h1 class="m-auto">Wala ka pa napapasa boss kilos kilos naman</h1>
-                    </div>
-                @endif
-            </div>
-        </div>
+    <!-- Unfinished Requirements Section -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h2 class="font-semibold text-gray-700 mb-4">Unfinished Requirements</h2>
+      <ul class="space-y-2">
+        @foreach($todo as $task)
+          <li class="text-gray-500">📌 {{ $task }}</li>
+        @endforeach
+      </ul>
+    </div>
+    
+    <!-- Finished Requirements Section -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h2 class="font-semibold text-gray-700 mb-4">Finished Requirements</h2>
+      <ul class="space-y-2">
+          @if(count($done) > 0)
+            @foreach($done as $task)
+              <li class="text-gray-500">✔ {{ $task }}</li>
+            @endforeach
+          @else
+            <li class="text-gray-500">No finished requirements yet.</li>
+          @endif
+      </ul>
+    </div>
+  </div>
 
-    <!-- upload box -->
-        <div class="flex flex-wrap m-auto w-5/6 bg-blue-200 p-4 border border-black">
-        <form action="{{ route('files.upload') }}" method="POST" enctype="multipart/form-data" class="flex m-auto gap-x-8">
-            @csrf
-            <div class="flex flex-col">
-                <label for="column" class="block text-gray-700 text-sm font-bold mb-2">Select Column:</label>
-                <select name="column" id="column" class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                    @foreach($files as $file)
-                        <option value="{{ $file->id }}">{{ ucfirst(str_replace('_', ' ', $file->column_name)) }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="flex flex-col">
-                <label for="file" class="block text-gray-700 text-sm font-bold mb-2">Upload File:</label>
-                <input type="file" name="file" id="file" class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-            </div>
-            <div class="flex items-center">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    Upload
-                </button>
-            </div>
-        </form>
+  <form action="{{ route('files.upload') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+      <div class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg">
+          <h2 class="text-xl font-semibold mb-6 text-center text-pink-700">Upload File</h2>
 
-        </div>
+          <!-- Column Selection -->
+          <div class="mb-4">
+              <label for="column" class="block text-gray-700 text-sm font-medium mb-2">Select Column</label>
+              <select name="column" id="column" class="w-full border border-pink-300 rounded px-4 py-2">
+                  <option value="">Choose a column</option>
+                  <!-- Assuming you pass columns data to the view -->
+                  @foreach($fileUp as $column)
+                      <option value="{{ $column->id }}">{{ $column->column_name }}</option>
+                  @endforeach
+              </select>
+          </div>
+
+          <!-- File Upload -->
+          <div class="mb-4">
+              <label for="file" class="block text-gray-700 text-sm font-medium mb-2">Upload File</label>
+              <input type="file" name="file" id="file" class="w-full border border-pink-300 rounded px-4 py-2" accept=".jpg,.png,.pdf,.doc,.docx">
+              @error('file')
+                  <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
+              @enderror
+          </div>
+
+          <!-- Submit Button -->
+          <div class="flex justify-center">
+              <button type="submit" class="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50">
+                  Upload
+              </button>
+          </div>
+      </div>
+  </form>
+
 
 </div>
+

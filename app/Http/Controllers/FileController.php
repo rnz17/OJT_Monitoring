@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\File;
 
 class FileController extends Controller
 {
@@ -19,10 +20,12 @@ class FileController extends Controller
         $file = $request->file('file');
 
         // Store the file in the public/files directory
-        $filePath = $file->storeAs('files', $file->getClientOriginalName(), 'public');
+        $fileName = Auth::user()->stud_id . '_' . $file->getClientOriginalName();
+        $filePath = $file->storeAs('files', $fileName, 'public');
+
 
         // Save file details in the database
-        \App\Models\File::create([
+        File::create([
             'student_id' => $user,
             'column_id' => $column,
             'file_path' => $filePath,
