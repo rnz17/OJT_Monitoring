@@ -12,6 +12,8 @@ use Illuminate\View\View;
 use App\Models\Column;
 use App\Models\User;
 use App\Models\File;
+use App\Models\Section;
+use App\Models\Program;
 
 class ProfileController extends Controller
 {
@@ -64,7 +66,7 @@ class ProfileController extends Controller
 
 
 
-    public function table()
+    public function table(Request $request)
     {
         // Fixed columns
         $staticColumns = ['stud_id', 'name', 'program', 'section', 'email', 'acad_yr'];
@@ -75,14 +77,49 @@ class ProfileController extends Controller
         // Merge static and dynamic columns
         $columns = array_merge($staticColumns, $dynamicColumns);
 
-        // Fetch users with only the static columns (adjust for dynamic column handling if needed)
-        $users = \App\Models\User::select($staticColumns)->where('professor', 0)->get();
+        // Start query for users (students)
+        $query = \App\Models\User::select($staticColumns)->where('professor', 0);
 
+        // Search filter: Apply search condition if a search term is provided
+        if ($request->has('search') && $request->search != '') {
+            $searchTerm = $request->search;
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('stud_id', 'like', "%$searchTerm%")
+                ->orWhere('name', 'like', "%$searchTerm%")
+                ->orWhere('section', 'like', "%$searchTerm%")
+                ->orWhere('email', 'like', "%$searchTerm%");
+            });
+        }
+
+        // Program filter: Apply program filter if a program is selected
+        if ($request->has('program') && $request->program != '') {
+            $query->where('program', $request->program);
+        }
+
+        // Section filter: Apply section filter if a section is selected
+        if ($request->has('section') && $request->section != '') {
+            $query->where('section', $request->section);
+        }
+
+        // Fetch filtered users
+        $users = $query->get();
+
+        // Fetch all programs and sections for the filter options
+        $programs = Program::all();
+        $sections = Section::all();
+
+        // Return the view with users and filter data
         return view('admin.dashboard', [
             'users' => $users,
-            'columns' => $columns
+            'columns' => $columns,
+            'programs' => $programs,
+            'sections' => $sections,
+            'search' => $request->search,
+            'programFilter' => $request->program,
+            'sectionFilter' => $request->section
         ]);
     }
+
 
     /**
      * Display the user's profile form.

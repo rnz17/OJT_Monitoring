@@ -33,11 +33,9 @@ class User extends Authenticatable
         static::creating(function ($user) {
             // Set professor based on the email
             $user->professor = strpos($user->email, 'student') === false;
-        });
 
-        static::updating(function ($user) {
-            // If you want to update it when the email changes
-            $user->professor = strpos($user->email, 'student') === false;
+            // Set acad_yr to the current year
+            $user->acad_yr = date('Y');
         });
     }
 
