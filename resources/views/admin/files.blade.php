@@ -1,31 +1,34 @@
 @include('partials.head')
 @include('partials.sidebar')
 
-<div class="w-full">
-
-    <!-- display current columns -->
-        <div class="flex p-12">
-            <table class="table-auto w-full">
-                <thead>
-                    <tr>
-                        <th class="border border-black px-4 py-2">File Name</th>
-                        <th class="border border-black px-4 py-2">File Type</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($files as $file)
+<div class="w-full bg-[#FAD4D4]">
+    <div class="container mx-auto p-4">
+        <!-- display current columns -->
+        <div class="flex p-12 bg-white border border-gray-300 rounded-lg shadow-xl">
+            <div class="table-container w-full overflow-x-auto">
+                <!-- Table inside the border -->
+                <table class="table-auto w-full bg-white">
+                    <thead>
                         <tr>
-                            <td class="border border-black px-4 py-2">{{ $file->column_name }}</td>
-                            <td class="border border-black px-4 py-2">{{ $file->column_type }}</td>
+                            <th class="border border-gray-300 px-4 py-2">File Name</th>
+                            <th class="border border-gray-300 px-4 py-2">File Type</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach($files as $file)
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2">{{ $file->column_name }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $file->column_type }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-    <!-- add new column -->
+        <!-- add new column -->
         <div class="flex p-12">
-            <div class="m-auto w-1/2 bg-white border border-black rounded-lg shadow-xl p-12">
+            <div class="m-auto w-1/2 bg-white border border-gray-300 rounded-lg shadow-xl p-12">
                 <form action="{{ route('admin.files.store') }}" method="POST">
                     @csrf
                     <div class="mb-4">
@@ -50,5 +53,5 @@
                 </form>
             </div>
         </div>
-
+    </div>
 </div>
