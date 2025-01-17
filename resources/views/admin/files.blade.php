@@ -9,9 +9,9 @@
                 <!-- Table inside the border -->
                 <table class="table-auto w-full bg-white">
                     <thead>
-                        <tr>
-                            <th class="border border-gray-300 px-4 py-2">File Name</th>
-                            <th class="border border-gray-300 px-4 py-2">File Type</th>
+                        <tr class="bg-[#F6A8A8]"> <!-- Adjusted background color -->
+                            <th class="border border-gray-300 px-4 py-2 text-[#FFFFFF]">File Name</th>
+                            <th class="border border-gray-300 px-4 py-2 text-[#FFFFFF]">File Type</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,9 +45,9 @@
                             <option value="boolean">Boolean</option>
                         </select>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                            Add Column
+                    <button type="submit" class="bg-[#F6A8A8] text-[#FFFFFF] border border-[#E08A8A] border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-120 hover:border-t-4 hover:border-b active:opacity-80 outline-none duration-300 group mr-8">
+                        <span class="bg-[#E08A8A] shadow-[#E08A8A] absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
+                        Add Column
                         </button>
                     </div>
                 </form>
