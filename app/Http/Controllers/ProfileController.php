@@ -199,7 +199,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('admin.profile', [
+        return view('admin.account', [
             'user' => $request->user(),
         ]);
     }
