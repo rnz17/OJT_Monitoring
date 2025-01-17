@@ -82,13 +82,13 @@ class ProfileController extends Controller
         $staticColumns = ['stud_id', 'name', 'program', 'section', 'email', 'acad_yr'];
     
         // Fetch dynamic columns from the database (with column names only)
-        $dynamicColumns = \App\Models\Column::pluck('column_name')->toArray();
+        $dynamicColumns = Column::pluck('column_name')->toArray();
     
         // Merge static and dynamic columns
         $columns = array_merge($staticColumns, $dynamicColumns);
     
         // Start query for users (students)
-        $query = \App\Models\User::select($staticColumns);
+        $query = User::select($staticColumns);
     
         // Search filter: Apply search condition if a search term is provided
         if ($request->has('search') && $request->search != '') {
@@ -119,10 +119,10 @@ class ProfileController extends Controller
             // Loop through dynamic columns and add file_path for each column
             foreach ($dynamicColumns as $columnName) {
                 // Get the column_id for the current dynamic column name
-                $column = \App\Models\Column::where('column_name', $columnName)->first();
+                $column = Column::where('column_name', $columnName)->first();
                 if ($column) {
                     // Get the file associated with the dynamic column and student (matching stud_id)
-                    $file = \App\Models\File::where('column_id', $column->id)
+                    $file = File::where('column_id', $column->id)
                                             ->where('student_id', $user->stud_id) // Match student_id with stud_id
                                             ->first();
     
@@ -149,6 +149,47 @@ class ProfileController extends Controller
         ]);
     }
     
+
+    public function sections($id)
+    {
+        // Fixed columns
+        $staticColumns = ['stud_id', 'name', 'program', 'section', 'email', 'acad_yr'];
+    
+        // Fetch dynamic columns from the database (with column names only)
+        $dynamicColumns = Column::pluck('column_name')->toArray();
+    
+        // Merge static and dynamic columns
+        $columns = array_merge($staticColumns, $dynamicColumns);
+
+        // Fetch users where the 'section' column matches the provided $id
+        $users = User::where('section', $id)->where('professor', 0)->get();
+        
+        // Loop through each user to fetch file paths for dynamic columns
+        foreach ($users as $user) {
+            // Loop through dynamic columns and add file_path for each column
+            foreach ($dynamicColumns as $columnName) {
+                // Get the column_id for the current dynamic column name
+                $column = Column::where('column_name', $columnName)->first();
+                if ($column) {
+                    // Get the file associated with the dynamic column and student (matching stud_id)
+                    $file = File::where('column_id', $column->id)
+                                            ->where('student_id', $user->stud_id) // Match student_id with stud_id
+                                            ->first();
+    
+                    // If a file exists, assign the file_path to the dynamic column of the user
+                    $user->$columnName = $file ? $file->file_path : null;
+                }
+            }
+        }
+
+        // dd($user);
+
+        // Return a view with the filtered users
+        return view('admin.filtered', [
+            'users' => $users,
+            'columns' => $columns,
+        ]);
+    }
 
 
 

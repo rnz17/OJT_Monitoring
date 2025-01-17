@@ -38,8 +38,8 @@
                     <div class="mb-4">
                         <label for="type" class="block text-gray-700 text-sm font-bold mb-2">Upload type:</label>
                         <select name="type" id="type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                            <option value="text">Text</option>
                             <option value="file">File</option>
+                            <option value="text">Text</option>
                             <option value="number">Number</option>
                             <option value="date">Date</option>
                             <option value="boolean">Boolean</option>

@@ -9,4 +9,10 @@ class Program extends Model
     protected $fillable = [
         'program'
     ];
+
+    public function sections()
+    {
+        return $this->hasMany(Section::class);
+    }
+
 }

@@ -26,6 +26,10 @@ Route::get('/register', [SectionController::class, 'register'])->name('register'
     Route::get('/admin/files', [ColumnController::class, 'index'])->name('admin.files');
     Route::post('/admin/files', [ColumnController::class, 'store'])->name('admin.files.store');
 
+    Route::get('/admin/section', [SectionController::class, 'index'])->name('admin.section');
+
+    Route::get('/admin/{id}', [ProfileController::class, 'sections'])->name('admin.filtered');
+
     
 // CLIENT SIDE
 

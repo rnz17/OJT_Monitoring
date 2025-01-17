@@ -46,11 +46,17 @@
                         </thead>
                         <tbody>
                             @foreach($users as $user)
-                            <tr class="bg-[#FFFFFF]">
-                                @foreach($columns as $column)
-                                <td class="py-2 px-4 border">{{ $user->$column }}</td>
-                                @endforeach
-                            </tr>
+                                <tr class="bg-[#FFFFFF]">
+                                    @foreach($columns as $column)
+                                        <td class="py-2 px-4 border text-center">
+                                            @if(strpos($user->$column, 'files') !== false)
+                                                <a href="{{ asset('storage/'.$user->$column) }}" target="_blank" class="text-white bg-blue-500 py-1 px-4 rounded-lg border border-gray-200 underline">View File</a>
+                                            @else
+                                                {{ $user->$column }}
+                                            @endif
+                                        </td>
+                                    @endforeach
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
