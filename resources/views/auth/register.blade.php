@@ -1,4 +1,13 @@
 <x-guest-layout>
+        <div class="flex justify-end">
+            <img src="{{ asset('images/registercolor.jpg') }}" alt="Login Image" class="absolute right-0 top-1/2 transform -translate-y-1/2 w-1/3 h-full">
+        </div>
+  
+        <div>
+        <h2 class="text-[20]">Create your Account<br></h2> 
+        <h2 class="font-bold text-3xl">Sign Up to PortalNest</h2>
+        </div><br>
+
 <form method="POST" action="{{ route('register') }}">
     @csrf
 

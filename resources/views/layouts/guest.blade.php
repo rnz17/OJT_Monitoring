@@ -16,14 +16,31 @@
     </head>
     <body class="font-sans text-[#5C3C3C] antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-[#FAD4D4]">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-[#5C3C3C]" />
-                </a>
-            </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-[#FAD4D4] shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
+    <div class="absolute top-0 left-0 p-4">
+    <a href="{{ route('login') }}">
+    <h2 class="text-xl font-bold">
+        PORTALNEST
+    </h2>
+    </div>
+</a>
+
+        
+    <div class="flex flex-col items-start w-[60%] h-full">
+        <a href="/" class="mb-4 ml-[17%]"> <!-- Adjusted with left margin -->
+        <x-application-logo class="w-20 h-20 fill-current text-[#5C3C3C]" />
+        </a>
+        <div class="w-full sm:max-w-md px-6 py-4 bg-white dark:bg-[#FAD4D4] shadow-2xl overflow-hidden sm:rounded-lg">
+        {{ $slot }}
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
             </div>
         </div>
     </body>

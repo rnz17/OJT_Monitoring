@@ -1,14 +1,24 @@
-<div class="flex flex-col h-screen bg-[#F0E6E6] w-64 py-6 px-4 rounded-lg shadow-lg">
+<div class="flex flex-col h-screen bg-[#F0E6E6] w-64 py-6 px-4">
     <!-- Logo -->
     <div class="flex justify-center mb-8">
-        <img src='images/CCS LOGO.png' class="w-16 h-16 object-contain">
-
+    <a href="{{ route('dashboard') }}">
+    <img src="{{ asset('images/CCS LOGO.png') }}" class="w-17 h-17 object-contain" style="width: 100px; height: 100px;">
+    </a>
     </div>
 
+
+    
     <!-- Profile -->
-    <a href="@if(Auth::user()->professor === 1){{route('admin.profile')}}@else{{route('client.profile')}}@endif" class="flex items-center space-x-3 mb-6">
-        <span class="text-pink-800 font-medium">{{ Auth::user()->name }}</span>
+    <a href="@if(Auth::user()->professor === 1){{ route('admin.profile') }}@else{{ route('client.profile') }}@endif" 
+   class="flex flex-col items-center text-pink-800 hover:text-pink-600 mb-6">
+    <!-- Icon (Image) -->
+    <div class="w-10 h-10 flex justify-center items-center">
+        <img src="{{ asset('images/profile.png') }}" alt="Account Icon" class="w-full h-full object-contain">
+    </div>
+    <!-- User Name -->
+    <span class="mt-2 font-medium">{{ Auth::user()->name }}</span>
     </a>
+
 
     <!-- Menu Items -->
     @if(Auth::user()->professor === 1) 
@@ -42,15 +52,15 @@
     @else
         <!-- student sidebar -->
         <div class="flex flex-col space-y-6">
-            <a href="{{route('client.landing')}}" class="flex items-center space-x-3 text-pink-800 hover:text-pink-600">
-                <div class="w-6 h-6 flex justify-center items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3M12 19v2m0-19a9 9 0 11-9 9 9 9 0 019-9z" />
-                    </svg>
-                </div>
-                <span>Dashboard</span>
-            </a>
+    <a href="{{ route('client.landing') }}" class="flex flex-col items-center text-pink-800 hover:text-pink-600">
+        <!-- Icon (Image) -->
+        <div class="w-10 h-10 flex justify-center items-center">
+            <img src="{{ asset('images/dashboard.png') }}" alt="Dashboard Icon" class="w-full h-full object-contain">
         </div>
+        <!-- Text -->
+        <span class="mt-2 font-medium">Dashboard</span>
+        </a>
+        </div><br>
     @endif
     @include('partials.logout')
 </div>

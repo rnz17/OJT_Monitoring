@@ -1,4 +1,9 @@
 <x-guest-layout>
+
+<div class="flex justify-end">
+            <img src="{{ asset('images/logincolor.jpg') }}" alt="Login Image" class="absolute right-0 top-1/2 transform -translate-y-1/2 w-1/3 h-full">
+        </div>
+        
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
         {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
     </div>

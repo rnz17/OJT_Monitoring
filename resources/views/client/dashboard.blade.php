@@ -5,7 +5,10 @@
   <div class="grid grid-cols-2 gap-6 mb-6">
     <!-- Notification Section -->
     <div class="bg-white p-6 rounded-lg shadow">
-      <h2 class="font-semibold text-gray-700 mb-4">Notification</h2>
+      <h2 class="font-semibold text-gray-700 mb-4 flex items-center">
+    <img src="{{ asset('images/notification.png') }}" alt="Notification Icon" class="w-5 h-5 mr-2 align-middle" style="vertical-align: middle;"> 
+    Notification
+      </h2>
       <ul class="space-y-2">
         <li class="text-gray-500">📌 Please finish requirement...</li>
         <li class="text-gray-500">📌 Please finish requirement...</li>
@@ -17,28 +20,39 @@
     
     <!-- Templates Section -->
     <div class="bg-white p-6 rounded-lg shadow">
-      <h2 class="font-semibold text-gray-700 mb-4">Templates</h2>
-      <ul class="space-y-2">
-        <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
-        <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
-        <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
-        <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
-      </ul>
+  <h2 class="font-semibold text-gray-700 mb-4 flex items-center">
+    <img src="{{ asset('images/template.png') }}" alt="Template Icon" class="w-5 h-5 mr-2"> 
+    Templates
+  </h2>
+  <ul class="space-y-2">
+    <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
+    <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
+    <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
+    <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
+  </ul>
     </div>
+
 
     <!-- Unfinished Requirements Section -->
     <div class="bg-white p-6 rounded-lg shadow">
-      <h2 class="font-semibold text-gray-700 mb-4">Unfinished Requirements</h2>
-      <ul class="space-y-2">
-        @foreach($todo as $task)
-          <li class="text-gray-500">📌 {{ $task }}</li>
-        @endforeach
-      </ul>
+  <h2 class="font-semibold text-gray-700 mb-4 flex items-center">
+    <img src="{{ asset('images/unfinished.png') }}" alt="Unfinished Icon" class="w-5 h-5 mr-2">
+    Unfinished Requirements
+  </h2>
+  <ul class="space-y-2">
+    @foreach($todo as $task)
+      <li class="text-gray-500">📌 {{ $task }}</li>
+    @endforeach
+  </ul>
     </div>
+
     
     <!-- Finished Requirements Section -->
     <div class="bg-white p-6 rounded-lg shadow">
-      <h2 class="font-semibold text-gray-700 mb-4">Finished Requirements</h2>
+    <h2 class="font-semibold text-gray-700 mb-4 flex items-center">
+    <img src="{{ asset('images/Fiinsihed.png') }}" alt="Finished Icon" class="w-5 h-5 mr-2">
+    Finished Requirements
+  </h2>
       <ul class="space-y-2">
           @if(count($done) > 0)
             @foreach($done as $task)
@@ -51,10 +65,15 @@
     </div>
   </div>
 
+
   <form action="{{ route('files.upload') }}" method="POST" enctype="multipart/form-data">
     @csrf
       <div class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg">
-          <h2 class="text-xl font-semibold mb-6 text-center text-pink-700">Upload File</h2>
+      <h2 class="text-xl font-semibold mb-6 text-center text-pink-700 flex items-center justify-center">
+            <img src="{{ asset('images/file.png') }}" alt="File Icon" class="w-6 h-6 mr-2"> 
+            Upload File
+        </h2>
+
 
           <!-- Column Selection -->
           <div class="mb-4">

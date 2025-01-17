@@ -2,7 +2,7 @@
 @include('partials.sidebar')
 
 <div class="w-full bg-pink-100 p-8">
-  <div class="grid grid-cols-2 gap-6">
+    <div class="grid grid-cols-2 gap-6">
     <!-- Account Information Section -->
     <div class="col-span-2 bg-white p-6 rounded-lg shadow">
       <h2 class="font-semibold text-gray-700 mb-4 flex items-center">
