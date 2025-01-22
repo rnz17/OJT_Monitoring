@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ColumnController;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\SectionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +41,11 @@ Route::get('/register', [SectionController::class, 'register'])->name('register'
 
 
 // others
+
+    // password change
+        Route::post('/client/profile', [PasswordController::class, 'update'])->middleware('auth')->name('update.password');
+
+
     Route::get('/dashboard', function () {
         // Get the authenticated user
         $user = Auth::user();
@@ -50,6 +55,7 @@ Route::get('/register', [SectionController::class, 'register'])->name('register'
         ? redirect()->route('admin.landing')
         : redirect()->route('client.landing');
     })->middleware(['auth', 'verified'])->name('dashboard');
+
 
     Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

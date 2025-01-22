@@ -36,18 +36,18 @@
                 <h2 class="text-2xl font-semibold mb-4">Password Update</h2>
                 <!-- Description of the Password Update section -->
                 <p class="mb-4">Ensure your account is using a long random password to stay secure.</p>
-                <form action="{{ route('profile.update') }}" method="post">
+                <form action="{{ route('update.password') }}" method="post">
                     @csrf
-                    @method('patch')
+                    @method('post')
                     <!-- Label and input for Current Password -->
-                    <label for="current-password" class="block mb-2">Current Password</label>
-                    <input type="password" id="current-password" name="current-password" placeholder="Enter current password" class="border p-2 w-full mb-4 rounded">
+                    <label for="current_password" class="block mb-2">Current Password</label>
+                    <input type="password" id="current_password" name="current_password" placeholder="Enter current password" class="border p-2 w-full mb-4 rounded">
                     <!-- Label and input for New Password -->
-                    <label for="new-password" class="block mb-2">New Password</label>
-                    <input type="password" id="new-password" name="new-password" placeholder="Enter new password" class="border p-2 w-full mb-4 rounded">
+                    <label for="password" class="block mb-2">New Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter new password" class="border p-2 w-full mb-4 rounded">
                     <!-- Label and input for Confirm Password -->
-                    <label for="confirm-password" class="block mb-2">Confirm Password</label>
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm new password" class="border p-2 w-full mb-4 rounded">
+                    <label for="password_confirmation" class="block mb-2">Confirm Password</label>
+                    <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm new password" class="border p-2 w-full mb-4 rounded">
                     <!-- Custom Save button -->
                     <button type="submit" class="bg-[#F6A8A8] text-[#FFFFFF] border border-[#E08A8A] border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-120 hover:border-t-4 hover:border-b active:opacity-80 outline-none duration-300 group mr-8">
                         <span class="bg-[#E08A8A] shadow-[#E08A8A] absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
