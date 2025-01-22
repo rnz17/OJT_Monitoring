@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2025 at 02:05 PM
+-- Generation Time: Jan 22, 2025 at 10:27 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,12 +29,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `enrolled` enum('0','1') NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   `stud_id` bigint(20) NOT NULL,
   `program` varchar(255) DEFAULT NULL,
   `section` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
-  `acad_yr` enum('2024-2025','2025-2026','2026-2027','2027-2028','2028-2029') DEFAULT NULL,
+  `acad_yr` enum('2025','2026','2027','2028','2029','2030','2031','2032') DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `professor` tinyint(1) NOT NULL DEFAULT 0,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -47,11 +48,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `stud_id`, `program`, `section`, `email`, `acad_yr`, `password`, `professor`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Renzo Gregorio', 194417625, 'CS', 'section 1', 'rmgregorio3@student.fatima.edu.ph', '2024-2025', '$2y$12$.F6gM.aoZlNsMAE.7TRJSumz.r1Q7G7h.MS5zLyAz3MWbpWHdmitS', 0, NULL, NULL, '2025-01-14 03:01:01', '2025-01-14 03:01:01'),
-(2, 'Professor Renzo', 194417626, 'IT', 'section 1', 'rmgregorio3@fatima.edu.ph', NULL, '$2y$12$CoHLjDl8plxT0LARmBVXB.kdB.zHVuYLZmmxxrpRSnfKqM0lC3f0e', 1, NULL, NULL, '2025-01-14 03:15:51', '2025-01-14 23:32:39'),
-(3, 'testers', 12341234, 'IT', 'section 1', 'test@fatima.edu.ph', NULL, '$2y$12$DDi9NQWIcqp9YCuohgPgLug5/1c1ojBm4dEMHSZ8XUd7mv29XUzNm', 1, NULL, NULL, '2025-01-14 03:45:01', '2025-01-14 03:45:01'),
-(4, 'student 1', 11112222, 'EMC', 'section 1', 'sample@student.fatima.edu.ph', NULL, '$2y$12$zzDkKfkeg.N2idp56SeBmODINOrRZwXqnCdxt1Hn45meJ5JXwT1zq', 0, NULL, NULL, '2025-01-15 00:29:23', '2025-01-15 00:29:23');
+INSERT INTO `users` (`id`, `enrolled`, `name`, `stud_id`, `program`, `section`, `email`, `acad_yr`, `password`, `professor`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
+(5, '0', 'Prof Renzo Gregorio', 194417626, NULL, NULL, 'rmgregorio3@fatima.edu.ph', NULL, '$2y$12$34aFiISKQtHrskJCtEfzBeKVQhTW/ltscTXXYHAtoapskMFg2wMUe', 1, NULL, NULL, '2025-01-15 20:32:23', '2025-01-22 00:15:47'),
+(6, '1', 'Renzo Gregorio', 194417625, 'CS', 'CS4Y2-1', 'rmgregorio3@student.fatima.edu.ph', NULL, '$2y$12$gpqb9Dq0yM/7l5eXcZeU9.pYtqVbj6xSU.38z3wlv5yzLi.tW6m7G', 0, NULL, 'sO1GandhA4Dv7T9r49QnUZWCgPAtCqCYDtnalEJP6K6ECoKWZJHnr27qS7Lh', '2025-01-15 20:33:00', '2025-01-22 01:22:20'),
+(7, '0', 'sample student', 11111111, 'IT', 'IT4Y2-1', 'sample@student.fatima.edu.ph', NULL, '$2y$12$fBDDarDWM2sCDuvLV53QyuowAOwi/J.hy6yE9UdXUiJwKbvORCZUi', 0, NULL, NULL, '2025-01-15 20:35:53', '2025-01-22 01:23:08'),
+(8, '0', 'sample student 2', 22222222, 'EMC', 'EMC4Y1-2', 'sample2@student.fatima.edu.ph', '2025', '$2y$12$3R2HzXdIxiqeRZDTjHV27errPh02E/ng011yREGGyiQ5iOlsB69HG', 0, NULL, NULL, '2025-01-15 20:40:11', '2025-01-15 20:40:11');
 
 --
 -- Indexes for dumped tables
@@ -73,7 +74,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
