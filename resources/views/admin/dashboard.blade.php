@@ -48,8 +48,13 @@
                             @foreach($users as $user)
                                 <tr class="bg-[#FFFFFF]">
                                     @foreach($columns as $column)
+
                                         <td class="py-2 px-4 border text-center">
-                                            @if(strpos($user->$column, 'files') !== false)
+                                            @if(empty($user->$column) && ($column !== 'enrolled'))
+                                                <p>--</p>
+                                            @elseif($column == 'enrolled')
+                                                <input type="checkbox" class="enrolled-checkbox rounded-sm" data-user-id="{{ $user->stud_id }}" {{ $user->$column ? 'checked' : '' }}>
+                                            @elseif(strpos($user->$column, 'files') !== false)
                                                 <a href="{{ asset('storage/'.$user->$column) }}" target="_blank" class="text-white bg-blue-500 py-1 px-4 rounded-lg border border-gray-200 underline">View File</a>
                                             @else
                                                 {{ $user->$column }}
@@ -63,4 +68,39 @@
             </div>
     </div>
 </div>
-    
+<!-- Add this inside your <head> tag or just before closing </body> tag -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).on('change', '.enrolled-checkbox', function() {
+    var userId = $(this).data('user-id');
+    var status = $(this).prop('checked') ? 1 : 0;
+    var column = '{{ $column }}'; 
+
+    $.ajax({
+        url: '{{ route("update.enrollment") }}',
+        method: 'POST',
+        data: {
+            user_id: userId,
+            status: status,
+            column: 'enrolled',
+            _token: '{{ csrf_token() }}',
+        },
+        success: function(response) {
+            if (response.success) {
+                console.log('Enrollment status updated successfully.');
+                console.log(userId);
+                console.log(status);
+            } else {
+                console.log('Failed to update enrollment status.');
+                console.log(userId);
+                console.log(status);
+            }
+        }
+    });
+});
+
+</script>
+
+
+</body>

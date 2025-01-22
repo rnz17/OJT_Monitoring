@@ -17,6 +17,25 @@ use App\Models\Program;
 
 class ProfileController extends Controller
 {
+    public function updateEnrollment(Request $request)
+    {
+        // Find the user by their student ID
+        $user = User::where('stud_id', $request->user_id)->first();
+
+        
+        // Check if user exists
+        if ($user) {
+            $user->enrolled = $request->status; 
+            
+            $user->save();
+            
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'message' => 'User not found']);
+    }
+
+
 
     public function persoTable()
     {
@@ -74,12 +93,10 @@ class ProfileController extends Controller
         ]);
     }
 
-
-
     public function table(Request $request)
     {
         // Fixed columns
-        $staticColumns = ['stud_id', 'name', 'program', 'section', 'email', 'acad_yr'];
+        $staticColumns = ['enrolled', 'stud_id', 'name', 'program', 'section', 'email', 'acad_yr'];
     
         // Fetch dynamic columns from the database (with column names only)
         $dynamicColumns = Column::pluck('column_name')->toArray();

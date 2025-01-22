@@ -30,6 +30,8 @@ Route::get('/register', [SectionController::class, 'register'])->name('register'
 
     Route::get('/admin/{id}', [ProfileController::class, 'sections'])->name('admin.filtered');
 
+    Route::post('/update-enrollment', [ProfileController::class, 'updateEnrollment'])->name('update.enrollment');
+
     
 // CLIENT SIDE
 
