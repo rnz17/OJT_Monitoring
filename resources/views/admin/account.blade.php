@@ -16,9 +16,12 @@
                 <form action="{{ route('profile.update') }}" method="post">
                     @csrf
                     @method('patch')
-                    <!-- Label and input for Name -->
-                    <label for="name" class="block mb-2">Name</label>
-                    <input type="text" id="name" name="name" value="{{ Auth::user()->name }}" class="border p-2 w-full mb-4 rounded">
+                    <!-- Label and input for First Name -->
+                    <label for="name" class="block mb-2">First Name</label>
+                    <input type="text" id="name" name="name" value="{{ Auth::user()->fname }}" class="border p-2 w-full mb-4 rounded">
+                    <!-- Label and input for Last Name -->
+                    <label for="name" class="block mb-2">Surname</label>
+                    <input type="text" id="name" name="name" value="{{ Auth::user()->lname }}" class="border p-2 w-full mb-4 rounded">
                     <!-- Label and input for Email -->
                     <label for="email" class="block mb-2">Email</label>
                     <input type="email" id="email" name="email" value="{{ Auth::user()->email }}" class="border p-2 w-full mb-4 rounded">

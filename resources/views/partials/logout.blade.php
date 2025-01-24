@@ -2,7 +2,7 @@
     @csrf
 </form>
 
-<div class="flex flex-col space-y-6">
+<div class="flex flex-col space-y-6 m-auto mb-2">
     <a href="{{ route('logout') }}" 
        class="flex flex-col items-center text-pink-800 hover:text-pink-600"
        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

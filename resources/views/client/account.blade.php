@@ -13,16 +13,18 @@
         @method('patch')
         <div class="flex w-full">
           <div class="flex flex-col w-1/3 m-auto">
-          <label for="name" class="mb-2 text-gray-700">Name</label>
-          <input type="text" id="name" name="name" value="{{ Auth::user()->name }}" class="p-3 shadow-xl border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+            <label for="name" class="mb-2 text-gray-700">First Name</label>
+            <input type="text" id="name" name="name" value="{{ Auth::user()->fname }}" class="p-3 shadow-xl border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+            <label for="name" class="mb-2 text-gray-700">Surname</label>
+            <input type="text" id="name" name="name" value="{{ Auth::user()->lname }}" class="p-3 shadow-xl border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
           </div>
           <div class="flex flex-col w-1/3 m-auto">
-          <label for="email" class="mb-2 text-gray-700">Email</label>
-          <input type="text" id="email" name="email" value="{{ Auth::user()->email }}" class="p-3 shadow-xl border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+            <label for="email" class="mb-2 text-gray-700">Email</label>
+            <input type="text" id="email" name="email" value="{{ Auth::user()->email }}" class="p-3 mb-2 shadow-xl border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+            <button class="bg-pink-500 m-auto mb-1 text-white p-3 shadow-xl rounded-lg hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400">
+              Confirm Changes
+            </button>
           </div>
-          <button class="bg-pink-500 w-1/6 m-auto mb-1 text-white p-3 shadow-xl rounded-lg hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400">
-            Confirm Changes
-          </button>
         </div>
       </form>
     </div>

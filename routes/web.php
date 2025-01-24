@@ -17,18 +17,30 @@ Route::get('/register', [SectionController::class, 'register'])->name('register'
 
 // ADMIN SIDE
 
-    Route::get('/admin/dashboard', [ProfileController::class, 'table'])->name('admin.landing');
+    // profile
+        Route::view('/admin/profile','admin.account')->name('admin.profile');
 
-    Route::view('/admin/profile','admin.account')->name('admin.profile');
+    // dashboard
+        Route::get('/admin/dashboard', [ProfileController::class, 'table'])->name('admin.landing');
     
-    Route::view('/admin/section','admin.section')->name('admin.section');
 
-    Route::get('/admin/files', [ColumnController::class, 'index'])->name('admin.files');
-    Route::post('/admin/files', [ColumnController::class, 'store'])->name('admin.files.store');
+    // sections
+        Route::get('/admin/section', [SectionController::class, 'index'])->name('admin.section');
 
-    Route::get('/admin/section', [SectionController::class, 'index'])->name('admin.section');
+        Route::get('/admin/section/{id}', [ProfileController::class, 'sections'])->name('admin.filtered');
 
-    Route::get('/admin/{id}', [ProfileController::class, 'sections'])->name('admin.filtered');
+    // files
+        Route::get('/admin/files', [ColumnController::class, 'index'])->name('admin.files');
+            
+        Route::post('/admin/files', [ColumnController::class, 'store'])->name('admin.files.store');
+
+        Route::get('/admin/files/edit', [ColumnController::class, 'edit'])->name('admin.files.edit');
+        
+        Route::delete('/admin/files/edit', [ColumnController::class, 'delete'])->name('admin.files.delete');
+
+        Route::post('/admin/files/edit', [ColumnController::class, 'update'])->name('admin.files.update');
+
+
 
     Route::post('/update-enrollment', [ProfileController::class, 'updateEnrollment'])->name('update.enrollment');
 

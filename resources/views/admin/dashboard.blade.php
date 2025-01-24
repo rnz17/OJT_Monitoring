@@ -8,6 +8,12 @@
                 <div class="flex items-center justify-between mb-8">
                     <input id="search" type="text" name="search" value="{{ old('search', $search) }}" placeholder="Search for Student ID, Name, Section etc..." class="border border-[#F6A8A8] rounded px-4 py-2 w-1/3">
 
+                    <!-- Sort Dropdown -->
+                    <select id="sort" name="sort" class="border border-[#F6A8A8] rounded px-12 py-2 mr-4">
+                        <option value="lna" {{ old('sort', $programFilter) == 'lna' ? 'selected' : '' }}>Last Name Ascending</option>
+                        <option value="lnd" {{ old('sort', $programFilter) == 'lnd' ? 'selected' : '' }}>Last Name Descending</option>
+                    </select>
+
                     <select id="program" name="program" class="border border-[#F6A8A8] rounded px-12 py-2 mr-4">
                         <option value="">Select Program</option>
                         @foreach($programs as $program)
@@ -26,6 +32,13 @@
                         @endforeach
                     </select>
 
+                    
+                    <select id="acad_yr" name="acad_yr" class="border border-[#F6A8A8] rounded px-12 py-2 mr-4">
+                        <option value="">Academic Year</option> 
+                        <option value="2025">2025</option> 
+                        <option value="2026">2026</option> 
+                    </select>
+
                     <button type="submit" class="bg-[#F6A8A8] text-[#FFFFFF] border border-[#E08A8A] border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group mr-8">
                         <span class="bg-[#E08A8A] shadow-[#E08A8A] absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
                         Filter
@@ -34,7 +47,7 @@
             </form>
 
         <!-- table container -->
-            <div class="table-container w-full overflow-x-auto m-auto p-4">
+            <div class="table-container w-full overflow-auto m-auto p-4 max-h-[86vh]">
                 <!-- table -->
                     <table class="min-w-full bg-white">
                         <thead class="bg-[#F6A8A8] text-white">
@@ -56,6 +69,8 @@
                                                 <input type="checkbox" class="enrolled-checkbox rounded-sm" data-user-id="{{ $user->stud_id }}" {{ $user->$column ? 'checked' : '' }}>
                                             @elseif(strpos($user->$column, 'files') !== false)
                                                 <a href="{{ asset('storage/'.$user->$column) }}" target="_blank" class="text-white bg-blue-500 py-1 px-4 rounded-lg border border-gray-200 underline">View File</a>
+                                            @elseif(strpos($column, 'link') !== false)
+                                                <a href="$user->$column" target="_blank" class="text-truncate text-blue-500 underline">{{ $user->$column }}</a>
                                             @else
                                                 {{ $user->$column }}
                                             @endif

@@ -40,7 +40,8 @@ class RegisteredUserController extends Controller
 {
     // Add validation for section, program, and stud_id
     $request->validate([
-        'name' => ['required', 'string', 'max:255'],
+        'fname' => ['required', 'string', 'max:255'],
+        'lname' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
         'password' => ['required', 'confirmed', Rules\Password::defaults()],
         'program' => ['nullable', 'string'],  // Validate program
@@ -50,7 +51,8 @@ class RegisteredUserController extends Controller
 
     // Create the user with the new fields
     $user = User::create([
-        'name' => $request->name,
+        'fname' => $request->fname,
+        'lname' => $request->lname,
         'email' => $request->email,
         'password' => Hash::make($request->password),
         'program' => $request->program,  // Add program

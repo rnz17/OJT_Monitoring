@@ -20,7 +20,7 @@ class File extends Model
     protected $fillable = [
         'student_id',
         'column_id',
-        'file_path',
+        'content',
     ];
 
     /**

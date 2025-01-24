@@ -12,6 +12,7 @@
                         <tr class="bg-[#F6A8A8]"> <!-- Adjusted background color -->
                             <th class="border border-gray-300 px-4 py-2 text-[#FFFFFF]">File Name</th>
                             <th class="border border-gray-300 px-4 py-2 text-[#FFFFFF]">File Type</th>
+                            <th class="border border-gray-300 px-4 py-2 text-[#FFFFFF] w-1/6">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -19,6 +20,11 @@
                             <tr>
                                 <td class="border border-gray-300 px-4 py-2">{{ $file->column_name }}</td>
                                 <td class="border border-gray-300 px-4 py-2">{{ $file->column_type }}</td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    <div class="flex">
+                                        <a href="{{ route('admin.files.edit', ['id' => $file->id]) }}" class="px-4 py-1 border border-blue-200 bg-blue-200 rounded-xl m-auto">Edit</a>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -40,9 +46,6 @@
                         <select name="type" id="type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                             <option value="file">File</option>
                             <option value="text">Text</option>
-                            <option value="number">Number</option>
-                            <option value="date">Date</option>
-                            <option value="boolean">Boolean</option>
                         </select>
                     </div>
                     <button type="submit" class="bg-[#F6A8A8] text-[#FFFFFF] border border-[#E08A8A] border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-120 hover:border-t-4 hover:border-b active:opacity-80 outline-none duration-300 group mr-8">
