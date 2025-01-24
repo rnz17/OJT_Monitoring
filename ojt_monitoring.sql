@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 17, 2025 at 03:55 AM
+-- Generation Time: Jan 24, 2025 at 05:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -93,7 +93,8 @@ CREATE TABLE `files` (
   `id` int(11) NOT NULL,
   `student_id` bigint(20) NOT NULL,
   `column_id` bigint(20) NOT NULL,
-  `file_path` varchar(255) NOT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `content` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -102,8 +103,9 @@ CREATE TABLE `files` (
 -- Dumping data for table `files`
 --
 
-INSERT INTO `files` (`id`, `student_id`, `column_id`, `file_path`, `created_at`, `updated_at`) VALUES
-(3, 194417625, 1, 'files/194417625_Gregorio_RegCard.pdf', '2025-01-15 21:44:15', '2025-01-15 21:44:15');
+INSERT INTO `files` (`id`, `student_id`, `column_id`, `type`, `content`, `created_at`, `updated_at`) VALUES
+(7, 194417625, 1, NULL, 'files/194417625_Gregorio, Renzo Amyr M._Registration_Card.pdf', '2025-01-22 22:55:49', '2025-01-22 22:55:49'),
+(8, 194417625, 1, NULL, 'files/194417625_Gregorio, Renzo Amyr M._Registration_Card.pdf', '2025-01-22 22:55:49', '2025-01-22 22:55:49');
 
 -- --------------------------------------------------------
 
@@ -166,7 +168,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2025_01_14_101450_create_files_table', 4),
 (8, '2025_01_15_070001_add_acad_yr_to_users_table', 5),
 (9, '2025_01_16_025749_create_sections_table', 6),
-(10, '2025_01_16_030457_create_programs_table', 7);
+(10, '2025_01_16_030457_create_programs_table', 7),
+(11, '2025_01_22_082903_add_enrolled_to_users_table', 8),
+(12, '2025_01_23_061815_add_type_to_files_table', 9),
+(13, '2025_01_23_063650_rename_file_path_to_content_in_files_table', 10),
+(14, '2025_01_24_012030_add_lname_to_users_table', 11);
 
 -- --------------------------------------------------------
 
@@ -179,6 +185,14 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `password_reset_tokens`
+--
+
+INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
+('jdsalva5@student.fatima.edu.ph', '$2y$12$OuCIoXTjJmNJUWvBugpyuOhRWOlZiFwHJfwrgzwo/iDNQFNsYjG5a', '2025-01-22 16:14:55'),
+('rmgregorio3@student.fatima.edu.ph', '$2y$12$0R2/UEcpoeehrTYklUOQteHIr4ff1c/7/0tcdZ71T/Zta.2q1CD5S', '2025-01-21 23:40:06');
 
 -- --------------------------------------------------------
 
@@ -246,7 +260,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('ryglFTIdRKkSsZx8UOHH1hHNx67OC2oG0r93mH4g', 5, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiUk1oRHpreTl0MThSdnR0SG5YNWtTMmNtdGRlZUxCMjBBcGpmV2MwRyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly9vanQubG9jYWwvYWRtaW4vZGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6NTt9', 1737079372);
+('vPqqxCiqsPeVTnFAJ6bWthj4ykxUQmN7UOqJvkLB', 5, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiUFhsUXMydnQ3RVdwWW1WSkEwT1pwV2szcjV5NUd0dXJYenlWeWxkTSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly9vanQubG9jYWwvYWRtaW4vZGFzaGJvYXJkIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6NTt9', 1737691863);
 
 -- --------------------------------------------------------
 
@@ -256,7 +270,9 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `enrolled` enum('0','1') NOT NULL DEFAULT '0',
+  `fname` varchar(255) NOT NULL,
+  `lname` varchar(255) NOT NULL,
   `stud_id` bigint(20) NOT NULL,
   `program` varchar(255) DEFAULT NULL,
   `section` varchar(255) DEFAULT NULL,
@@ -274,11 +290,13 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `stud_id`, `program`, `section`, `email`, `acad_yr`, `password`, `professor`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(5, 'Prof Renzo Gregorio', 194417626, NULL, NULL, 'rmgregorio3@fatima.edu.ph', NULL, '$2y$12$IGP6Kv6PlW759yEhiGLM2OaHA4Brx0I5LIj7YvDlHD33h/x3U7Boq', 1, NULL, NULL, '2025-01-15 20:32:23', '2025-01-15 20:32:23'),
-(6, 'Renzo Gregorio', 194417625, 'CS', 'CS4Y2-1', 'rmgregorio3@student.fatima.edu.ph', NULL, '$2y$12$a576TSvFInCQj0/3sJRGbuDF2jYL79gdNKnsMaswdj1bfRFzn5nmi', 0, NULL, NULL, '2025-01-15 20:33:00', '2025-01-15 20:33:00'),
-(7, 'sample student', 11111111, 'IT', 'IT4Y2-1', 'sample@student.fatima.edu.ph', NULL, '$2y$12$fBDDarDWM2sCDuvLV53QyuowAOwi/J.hy6yE9UdXUiJwKbvORCZUi', 0, NULL, NULL, '2025-01-15 20:35:53', '2025-01-15 20:35:53'),
-(8, 'sample student 2', 22222222, 'EMC', 'EMC4Y1-2', 'sample2@student.fatima.edu.ph', '2025', '$2y$12$3R2HzXdIxiqeRZDTjHV27errPh02E/ng011yREGGyiQ5iOlsB69HG', 0, NULL, NULL, '2025-01-15 20:40:11', '2025-01-15 20:40:11');
+INSERT INTO `users` (`id`, `enrolled`, `fname`, `lname`, `stud_id`, `program`, `section`, `email`, `acad_yr`, `password`, `professor`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
+(5, '0', 'Prof', 'Renzo', 194417626, NULL, NULL, 'rmgregorio3@fatima.edu.ph', NULL, '$2y$12$34aFiISKQtHrskJCtEfzBeKVQhTW/ltscTXXYHAtoapskMFg2wMUe', 1, NULL, NULL, '2025-01-15 20:32:23', '2025-01-22 00:15:47'),
+(6, '1', 'Renzo', 'Gregorio', 194417625, 'CS', 'CS4Y2-1', 'rmgregorio3@student.fatima.edu.ph', NULL, '$2y$12$gpqb9Dq0yM/7l5eXcZeU9.pYtqVbj6xSU.38z3wlv5yzLi.tW6m7G', 0, NULL, '7J4pd5XJHn0ThJGoXbxAAtexBr8eFsrEIoPxeGhrcDhQIDEWOBptcZPyR9tK', '2025-01-15 20:33:00', '2025-01-22 01:22:20'),
+(7, '0', 'Sample', 'Student', 11111111, 'IT', 'IT4Y2-1', 'sample@student.fatima.edu.ph', NULL, '$2y$12$fBDDarDWM2sCDuvLV53QyuowAOwi/J.hy6yE9UdXUiJwKbvORCZUi', 0, NULL, NULL, '2025-01-15 20:35:53', '2025-01-22 17:20:29'),
+(8, '0', 'Sample', 'Student 2', 22222222, 'EMC', 'EMC4Y1-2', 'sample2@student.fatima.edu.ph', '2025', '$2y$12$3R2HzXdIxiqeRZDTjHV27errPh02E/ng011yREGGyiQ5iOlsB69HG', 0, NULL, NULL, '2025-01-15 20:40:11', '2025-01-15 20:40:11'),
+(9, '0', 'Jared Marshall', 'Salva', 192575441, 'CS', 'CS4Y2-1', 'jdsalva5@student.fatima.edu.ph', '2025', '$2y$12$ne7jf8.Va4OVM2jWMRylvOmFlJCXejK8zuAWxWCG0GficiL.pyMQ.', 0, NULL, NULL, '2025-01-22 16:14:21', '2025-01-22 16:16:44'),
+(10, '0', 'Sample', 'Student 3', 33333333, 'IT', 'IT4Y2-1', 'sample3@student.fatima.edu.ph', '2025', '$2y$12$b/ReDGOYSHfW0ELvIALTG.jLNDgZ/YmJgTAOIv.nUeKlYzws.Wu1e', 0, NULL, NULL, '2025-01-23 17:38:10', '2025-01-23 17:38:10');
 
 --
 -- Indexes for dumped tables
@@ -375,6 +393,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `columns`
+--
+ALTER TABLE `columns`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -384,7 +408,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -396,7 +420,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `programs`
@@ -414,7 +438,7 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
