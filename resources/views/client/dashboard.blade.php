@@ -3,69 +3,61 @@
 
 <div class="w-full bg-pink-100 p-8">
   <div class="grid grid-cols-2 gap-6 mb-6">
-    <!-- Notification Section -->
-    <div class="bg-white p-6 rounded-lg shadow">
-      <h2 class="font-semibold text-gray-700 mb-4 flex items-center">
-    <img src="{{ asset('images/notification.png') }}" alt="Notification Icon" class="w-5 h-5 mr-2 align-middle" style="vertical-align: middle;"> 
-    Notification
-      </h2>
-      <ul class="space-y-2">
-        <li class="text-gray-500">📌 Please finish requirement...</li>
-        <li class="text-gray-500">📌 Please finish requirement...</li>
-        <li class="text-gray-500">📌 Please finish requirement...</li>
-        <li class="text-gray-500">📌 Please finish requirement...</li>
-        <li class="text-gray-500">📌 Please finish requirement...</li>
-      </ul>
-    </div>
-    
     <!-- Templates Section -->
     <div class="bg-white p-6 rounded-lg shadow">
-  <h2 class="font-semibold text-gray-700 mb-4 flex items-center">
-    <img src="{{ asset('images/template.png') }}" alt="Template Icon" class="w-5 h-5 mr-2"> 
-    Templates
-  </h2>
-  <ul class="space-y-2">
-    <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
-    <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
-    <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
-    <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
-  </ul>
+      <h2 class="font-semibold text-gray-700 mb-4 flex items-center cursor-pointer" onclick="toggleVisibility('template-list', 'template-arrow')">
+        <img src="{{ asset('images/template.png') }}" alt="Template Icon" class="w-5 h-5 mr-2"> 
+        Templates
+        <svg id="template-arrow" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2 transition-transform duration-300 transform rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </h2>
+      <ul id="template-list" class="space-y-2 max-h-0 overflow-hidden transition-all duration-500">
+        <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
+        <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
+        <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
+        <li class="text-blue-500 hover:underline">Sample Resume.docx ⬇</li>
+      </ul>
     </div>
-
 
     <!-- Unfinished Requirements Section -->
     <div class="bg-white p-6 rounded-lg shadow">
-  <h2 class="font-semibold text-gray-700 mb-4 flex items-center">
-    <img src="{{ asset('images/unfinished.png') }}" alt="Unfinished Icon" class="w-5 h-5 mr-2">
-    Unfinished Requirements
-  </h2>
-  <ul class="space-y-2">
-    @foreach($todo as $task)
-      <li class="text-gray-500">📌 {{ $task }}</li>
-    @endforeach
-  </ul>
+      <h2 class="font-semibold text-gray-700 mb-4 flex items-center cursor-pointer" onclick="toggleVisibility('unfinished-list', 'unfinished-arrow')">
+        <img src="{{ asset('images/unfinished.png') }}" alt="Unfinished Icon" class="w-5 h-5 mr-2">
+        Unfinished Requirements
+        <svg id="unfinished-arrow" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2 transition-transform duration-300 transform rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </h2>
+      <ul id="unfinished-list" class="space-y-2 max-h-0 overflow-hidden transition-all duration-500">
+        @foreach($todo as $task)
+          <li class="text-gray-500">📌 {{ $task }}</li>
+        @endforeach
+      </ul>
     </div>
 
-    
     <!-- Finished Requirements Section -->
     <div class="bg-white p-6 rounded-lg shadow">
-    <h2 class="font-semibold text-gray-700 mb-4 flex items-center">
-    <img src="{{ asset('images/Fiinsihed.png') }}" alt="Finished Icon" class="w-5 h-5 mr-2">
-    Finished Requirements
-  </h2>
-      <ul class="space-y-2">
-          @if(count($done) > 0)
-            @foreach($done as $task)
-              <li class="text-gray-500">✔ {{ $task }}</li>
-            @endforeach
-          @else
-            <li class="text-gray-500">No finished requirements yet.</li>
-          @endif
+      <h2 class="font-semibold text-gray-700 mb-4 flex items-center cursor-pointer" onclick="toggleVisibility('finished-list', 'finished-arrow')">
+        <img src="{{ asset('images/Fiinsihed.png') }}" alt="Finished Icon" class="w-5 h-5 mr-2">
+        Finished Requirements
+        <svg id="finished-arrow" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2 transition-transform duration-300 transform rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </h2>
+      <ul id="finished-list" class="space-y-2 max-h-0 overflow-hidden transition-all duration-500">
+        @if(count($done) > 0)
+          @foreach($done as $task)
+            <li class="text-gray-500">✔ {{ $task }}</li>
+          @endforeach
+        @else
+          <li class="text-gray-500">No finished requirements yet.</li>
+        @endif
       </ul>
     </div>
   </div>
 
-
+  <!-- File Upload Form -->
   <form action="{{ route('files.upload') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg">
@@ -87,7 +79,8 @@
 
         <!-- Dynamic Input Field -->
         <div class="mb-4">
-            <label for="dynamic-input" class="block text-gray-700 text-sm font-medium mb-2">Input</label>
+            <label for="dynamic-input" class="block text-gray-700 text-sm font-medium">Input</label>
+            <label for="dynamic-input" class="block text-gray-700 text-xs font-small mb-1">File format: pdf, docx, jpg, png.</label>
             <input type="text" name="dynamic-input" id="dynamic-input" class="w-full border border-pink-300 rounded px-4 py-2" placeholder="Select a column to change input type">
         </div>
 
@@ -100,11 +93,20 @@
     </div>
   </form>
 
-
-
 </div>
 
 <script>
+    // Function to toggle visibility of sections
+    function toggleVisibility(sectionId, arrowId) {
+        const section = document.getElementById(sectionId);
+        const arrow = document.getElementById(arrowId);
+        section.classList.toggle('max-h-0'); // This will collapse or expand the section
+        section.classList.toggle('max-h-full'); // Make it fully visible when expanded
+        
+        // Rotate the arrow when expanded or collapsed
+        arrow.classList.toggle('rotate-180');
+    }
+
     function updateInputType(selectElement) {
         const selectedOption = selectElement.options[selectElement.selectedIndex];
         const columnType = selectedOption.getAttribute('data-type');
