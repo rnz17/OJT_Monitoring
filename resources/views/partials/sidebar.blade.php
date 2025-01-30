@@ -1,4 +1,4 @@
-<div class="relative flex flex-col h-screen bg-[#F0E6E6] w-[30vw] py-6 px-4">
+<div class="relative flex flex-col h-screen bg-[#F0E6E6] w-[15vw] py-6 px-4">
     <!-- Logo -->
     <div class="flex justify-center mb-8 h-1/6">
         <a href="{{ route('dashboard') }}">
