@@ -6,4 +6,4 @@
     <title>Monitoring</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="flex w-full overflow-hidden">
+<body class="flex w- overflow-hidden">

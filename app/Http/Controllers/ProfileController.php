@@ -251,7 +251,13 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('admin.profile')->with('status', 'profile-updated');
+
+        if (Auth::user()->professor == 0){
+            return Redirect::route('client.profile')->with('status', 'profile-updated');
+            
+        }else{
+            return Redirect::route('admin.profile')->with('status', 'profile-updated');
+        }
     }
 
     /**

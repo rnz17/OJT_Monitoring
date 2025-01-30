@@ -48,6 +48,7 @@ Route::get('/register', [SectionController::class, 'register'])->name('register'
 // CLIENT SIDE
 
     Route::get('/client', [ProfileController::class, 'persoTable'])->name('client.landing');
+    
     Route::view('/client/profile','client.account')->name('client.profile');
 
     Route::post('/client', [FileController::class, 'upload'])->name('files.upload');
