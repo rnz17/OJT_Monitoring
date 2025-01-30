@@ -29,6 +29,10 @@ Route::get('/register', [SectionController::class, 'register'])->name('register'
 
         Route::get('/admin/section/{id}', [ProfileController::class, 'sections'])->name('admin.filtered');
 
+        Route::get('/admin/editsection', [SectionController::class, 'view'])->name('admin.addsec');
+        Route::post('/admin/editsection', [SectionController::class, 'storesec'])->name('admin.addsec.store');
+        Route::delete('/admin/editsection', [SectionController::class, 'delete'])->name('admin.delsec');
+
     // files
         Route::get('/admin/files', [ColumnController::class, 'index'])->name('admin.files');
             
@@ -49,7 +53,7 @@ Route::get('/register', [SectionController::class, 'register'])->name('register'
 
     Route::get('/client', [ProfileController::class, 'persoTable'])->name('client.landing');
     
-    Route::view('/client/profile','client.account')->name('client.profile');
+    Route::get('/client/profile', [ProfileController::class, 'account'])->name('client.profile');
 
     Route::post('/client', [FileController::class, 'upload'])->name('files.upload');
 

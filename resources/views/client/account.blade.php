@@ -20,6 +20,14 @@
               <input type="text" id="name" name="lname" value="{{ Auth::user()->lname }}" class="p-3 shadow-xl border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
             </div>
             <div class="flex flex-col w-1/3 m-auto">
+              @if(Auth::user()->section === null)
+                <select name="section">
+                  <option>Select Section</option>
+                  @foreach($sections as $sec)
+                  <option value="{{ $sec->section }}">{{ $sec->section }}</option>
+                  @endforeach
+                </select>
+              @endif
               <button class="bg-pink-500 m-auto mt-2 text-white p-3 shadow-xl rounded-lg hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400">
                 Confirm Changes
               </button>

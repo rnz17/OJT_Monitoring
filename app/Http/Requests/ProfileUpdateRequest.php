@@ -18,14 +18,7 @@ class ProfileUpdateRequest extends FormRequest
         return [
             'fname' => ['required', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
-            'email' => [
-                'required',
-                'string',
-                'lowercase',
-                'email',
-                'max:255',
-                Rule::unique(User::class)->ignore($this->user()->id),
-            ],
+            'section' => ['required',' string'],
         ];
     }
 }
