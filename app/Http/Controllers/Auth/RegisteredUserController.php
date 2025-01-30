@@ -47,6 +47,11 @@ class RegisteredUserController extends Controller
         'program' => ['nullable', 'string'],  // Validate program
         'section' => ['nullable', 'string'],  // Validate section
         'stud_id' => ['required', 'string', 'unique:users'],  // Validate student ID (ensure it's unique)
+        function ($attribute, $value, $fail) {
+            if (!str_ends_with($value, '@fatima.edu.ph')) {
+                $fail('The ' . $attribute . ' must be a Fatima email address.');
+            }
+        },
     ]);
 
     // Create the user with the new fields

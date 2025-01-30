@@ -17,6 +17,8 @@ use App\Models\Program;
 
 class ProfileController extends Controller
 {
+
+
     public function updateEnrollment(Request $request)
     {
         // Find the user by their student ID
@@ -33,6 +35,14 @@ class ProfileController extends Controller
         }
 
         return response()->json(['success' => false, 'message' => 'User not found']);
+    }
+
+    public function account(){
+        $sections = Section::all();
+
+        return view('client.account',[
+            'sections' => $sections
+        ]);
     }
 
     public function persoTable()
@@ -183,9 +193,6 @@ class ProfileController extends Controller
             'sortFilter' => $request->sort // Add this for keeping the selected sort option
         ]);
     }
-    
-    
-    
     
     public function sections($id)
     {
