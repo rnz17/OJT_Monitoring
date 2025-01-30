@@ -6,9 +6,9 @@
     <div class="flex justify-center items-center min-h-screen">
         
         <!-- Container for profile sections side by side -->
-        <div class="flex justify-center gap-4 w-full max-w-6xl">
+        <div class="flex flex-col md:flex-row justify-center gap-4 w-full max-w-6xl px-4">
             <!-- Profile Information Section -->
-            <div class="bg-[#FFFFFF] p-6 rounded-lg shadow-lg w-1/2">
+            <div class="bg-[#FFFFFF] p-6 rounded-lg shadow-lg w-full md:w-1/2">
                 <!-- Title of the Profile Information section -->
                 <h2 class="text-2xl font-semibold mb-4">Profile Information</h2>
                 <!-- Description of the Profile Information section -->
@@ -33,7 +33,7 @@
             </div>
 
             <!-- Password Update Section -->
-            <div class="bg-[#FFFFFF] p-6 rounded-lg shadow-lg w-1/2">
+            <div class="bg-[#FFFFFF] p-6 rounded-lg shadow-lg w-full md:w-1/2">
                 <!-- Title of the Password Update section -->
                 <h2 class="text-2xl font-semibold mb-4">Password Update</h2>
                 <!-- Description of the Password Update section -->
