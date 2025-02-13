@@ -1,7 +1,7 @@
 @include('partials.head')
 @include('partials.sidebar')
 
-<div class="w-full bg-[#FAD4D4]">
+<div class="w-full bg-[#FAD4D4] w-[15vw] min-w-[420px]">
     <div class="container mx-auto p-4">
         <!-- display current columns -->
         <div class="flex p-12 bg-white border border-gray-300 rounded-lg shadow-xl">
