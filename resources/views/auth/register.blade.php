@@ -58,7 +58,7 @@
     </div>
 
     <!-- Program -->
-    <div class="mt-4">
+    <div id="progCont" class="mt-4 hidden">
         <x-input-label for="program" :value="__('Program')" />
         <select id="program" name="program" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500" required>
             <option value="">Null</option>
@@ -70,13 +70,10 @@
     </div>
 
     <!-- Section -->
-    <div class="mt-4">
+    <div id="secCont" class="mt-4 hidden">
         <x-input-label for="section" :value="__('Section')" />
         <select id="section" name="section" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500" required>
             <option value="">Null</option>
-            @foreach($sections as $section)
-                <option value="{{ $section->section }}">{{ $section->section }}</option>
-            @endforeach
         </select>
         <x-input-error :messages="$errors->get('section')" class="mt-2" />
     </div>
@@ -102,10 +99,11 @@
 </x-guest-layout>
 
 <script>
+    var sectionField = document.getElementById('section');
+    var programField = document.getElementById('program');
+
     document.getElementById('email').addEventListener('blur', function () {
         var email = this.value;
-        var sectionField = document.getElementById('section');
-        var programField = document.getElementById('program');
 
         if (email.includes('student')) {
             console.log("student");
@@ -115,11 +113,46 @@
             if (!programField.hasAttribute('required')) {
                 programField.setAttribute('required', 'required');
             }
+            document.getElementById('progCont').classList.remove('hidden')
+            document.getElementById('secCont').classList.remove('hidden')
         } else {
             console.log("prof");
             sectionField.removeAttribute('required');
             programField.removeAttribute('required');
         }
     });
+
+    const secs = @json($sections);
+    console.log(secs);
+
+    programField.addEventListener('change', function(){
+        if (programField.value.includes('CS')){
+            var content = ``;
+
+            for(sec of secs){
+                if(sec.section.includes('CS')){
+                    content+=`<option value="${sec.section}">${sec.section}</option>`
+                }
+            }
+        }else if(programField.value.includes('IT')){
+            var content = ``
+
+            for(sec of secs){
+                if(sec.section.includes('IT')){
+                    content+=`<option value="${sec.section}">${sec.section}</option>`
+                }
+            }
+        }else if(programField.value.includes('EMC')){
+            var content = ``
+
+            for(sec of secs){
+                if(sec.section.includes('EMC')){
+                    content+=`<option value="${sec.section}">${sec.section}</option>`
+                }
+            }
+        }
+
+        sectionField.innerHTML = content;
+    })
 
 </script>
