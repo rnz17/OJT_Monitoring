@@ -5,10 +5,19 @@ use App\Http\Controllers\ColumnController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\SectionController;
+use App\Http\Middleware\ProfessorMiddleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
+    if (Auth::check()) {
+        // Get the authenticated user
+        $user = Auth::user();
+
+        // Redirect based on the 'professor' column
+        return $user->professor ? redirect()->route('admin.landing') : redirect()->route('client.landing');
+    }
+
     return view('auth.login');
 })->name('landing');
 
@@ -16,37 +25,30 @@ Route::get('/', function () {
 Route::get('/register', [SectionController::class, 'register'])->name('register');
 
 // ADMIN SIDE
+    Route::middleware([ProfessorMiddleware::class])->prefix('admin')->group(function () {
+        // Profile
+        Route::view('/profile', 'admin.account')->name('admin.profile');
 
-    // profile
-        Route::view('/admin/profile','admin.account')->name('admin.profile');
+        // Dashboard
+        Route::get('/dashboard', [ProfileController::class, 'table'])->name('admin.landing');
 
-    // dashboard
-        Route::get('/admin/dashboard', [ProfileController::class, 'table'])->name('admin.landing');
-    
+        // Sections
+        Route::get('/section', [SectionController::class, 'index'])->name('admin.section');
+        Route::get('/section/{id}', [ProfileController::class, 'sections'])->name('admin.filtered');
+        Route::get('/editsection', [SectionController::class, 'view'])->name('admin.addsec');
+        Route::post('/editsection', [SectionController::class, 'storesec'])->name('admin.addsec.store');
+        Route::delete('/editsection', [SectionController::class, 'delete'])->name('admin.delsec');
 
-    // sections
-        Route::get('/admin/section', [SectionController::class, 'index'])->name('admin.section');
+        // Files
+        Route::get('/files', [ColumnController::class, 'index'])->name('admin.files');
+        Route::post('/files', [ColumnController::class, 'store'])->name('admin.files.store');
+        Route::get('/files/edit', [ColumnController::class, 'edit'])->name('admin.files.edit');
+        Route::delete('/files/edit', [ColumnController::class, 'delete'])->name('admin.files.delete');
+        Route::post('/files/edit', [ColumnController::class, 'update'])->name('admin.files.update');
 
-        Route::get('/admin/section/{id}', [ProfileController::class, 'sections'])->name('admin.filtered');
+        Route::post('/update-enrollment', [ProfileController::class, 'updateEnrollment'])->name('update.enrollment');
+    });
 
-        Route::get('/admin/editsection', [SectionController::class, 'view'])->name('admin.addsec');
-        Route::post('/admin/editsection', [SectionController::class, 'storesec'])->name('admin.addsec.store');
-        Route::delete('/admin/editsection', [SectionController::class, 'delete'])->name('admin.delsec');
-
-    // files
-        Route::get('/admin/files', [ColumnController::class, 'index'])->name('admin.files');
-            
-        Route::post('/admin/files', [ColumnController::class, 'store'])->name('admin.files.store');
-
-        Route::get('/admin/files/edit', [ColumnController::class, 'edit'])->name('admin.files.edit');
-        
-        Route::delete('/admin/files/edit', [ColumnController::class, 'delete'])->name('admin.files.delete');
-
-        Route::post('/admin/files/edit', [ColumnController::class, 'update'])->name('admin.files.update');
-
-
-
-    Route::post('/update-enrollment', [ProfileController::class, 'updateEnrollment'])->name('update.enrollment');
 
     
 // CLIENT SIDE

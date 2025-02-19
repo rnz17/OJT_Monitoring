@@ -74,21 +74,26 @@ class ProfileController extends Controller
         foreach ($dynamicColumns as $columnName) {
             // Find the column record from the `columns` table by the column_name
             $column = Column::where('column_name', $columnName)->first();
-
+            // dd($column);
             if ($column) {
+                $append = 0;
                 // Now find the corresponding file record in the `files` table using the column's id
-                $fileRecord = File::where('column_id', $column->id)->first();
-
+                $fileRecord = File::where('column_id', $column->id)->get();
                 // Check if file_record exists and if content is not null
-                if ($fileRecord && $fileRecord->content !== null && $fileRecord->student_id == Auth::user()->stud_id) {
-                    // Add content to $done if content is not null
-                    $done[] = $fileRecord->content;
-                } else {
-                    // Add to $todo if content is null
-                    $todo[] = $columnName;
+                if ($fileRecord) {
+                    foreach($fileRecord as $file){
+                        if ($file->student_id == Auth::User()->stud_id){
+                            $done[] = $file->content;
+                            $append = 1;
+                        }
+                    }
+                    if ($append == 0){
+                        $todo[] = $column->column_name;
+                    }
                 }
             }
         }
+
 
         // Return the view with the necessary data
         return view('client.dashboard', [

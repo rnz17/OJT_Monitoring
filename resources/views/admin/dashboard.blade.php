@@ -51,7 +51,17 @@
                 <thead class="bg-[#F6A8A8] text-white">
                     <tr>
                         @foreach($columns as $column)
-                            <th class="py-2 px-4 border">{{ $column }}</th>
+                            @if($column == 'stud_id')
+                                <th class="py-2 px-4 border">Student ID</th>
+                            @elseif($column == 'lname')
+                                <th class="py-2 px-4 border">Last Name</th>
+                            @elseif($column == 'fname')
+                                <th class="py-2 px-4 border">First Name</th>
+                            @elseif($column == 'acad_yr')
+                                <th class="py-2 px-4 border">Academic Year</th>
+                            @else
+                                <th class="py-2 px-4 border">{{ ucwords($column) }}</th>
+                            @endif    
                         @endforeach
                     </tr>
                 </thead>
@@ -67,7 +77,7 @@
                                     @elseif(strpos($user->$column, 'files') !== false)
                                         <a href="{{ asset('storage/'.$user->$column) }}" target="_blank" class="text-white bg-blue-500 py-1 px-2 rounded-lg border border-gray-200 underline">View File</a>
                                     @elseif(strpos($column, 'link') !== false)
-                                        <a href="$user->$column" target="_blank" class="text-truncate text-blue-500 underline">{{ $user->$column }}</a>
+                                        <a href="https://{{ $user->$column }}" target="_blank" class="text-truncate text-blue-500 underline">{{ $user->$column }}</a>
                                     @else
                                         {{ $user->$column }}
                                     @endif

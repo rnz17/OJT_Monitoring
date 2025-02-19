@@ -25,14 +25,18 @@
       <h2 class="font-semibold text-gray-700 mb-4 flex items-center cursor-pointer" onclick="toggleVisibility('unfinished-list', 'unfinished-arrow')">
         <img src="{{ asset('images/unfinished.png') }}" alt="Unfinished Icon" class="w-5 h-5 mr-2">
         Unfinished Requirements
-        <svg id="unfinished-arrow" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2 transition-transform duration-300 transform rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg id="unfinished-arrow" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2 transition-transform duration-300 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
         </svg>
       </h2>
-      <ul id="unfinished-list" class="space-y-2 max-h-0 overflow-hidden transition-all duration-500">
-        @foreach($todo as $task)
-          <li class="text-gray-500">📌 {{ $task }}</li>
-        @endforeach
+      <ul id="unfinished-list" class="space-y-2 max-h-full overflow-hidden transition-all duration-500">
+        @if(count($todo) >= 1)
+          @foreach($todo as $task)
+            <li class="text-gray-500">📌 {{ $task }}</li>
+          @endforeach
+        @else
+          <li class="text-gray-500">Congratulations, All requirements are uploaded already.</li>
+        @endif
       </ul>
     </div>
 
@@ -41,12 +45,12 @@
       <h2 class="font-semibold text-gray-700 mb-4 flex items-center cursor-pointer" onclick="toggleVisibility('finished-list', 'finished-arrow')">
         <img src="{{ asset('images/Fiinsihed.png') }}" alt="Finished Icon" class="w-5 h-5 mr-2">
         Finished Requirements
-        <svg id="finished-arrow" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2 transition-transform duration-300 transform rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg id="finished-arrow" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2 transition-transform duration-300 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
         </svg>
       </h2>
-      <ul id="finished-list" class="space-y-2 max-h-0 overflow-hidden transition-all duration-500">
-        @if(count($done) > 0)
+      <ul id="finished-list" class="space-y-2 max-h-full overflow-hidden transition-all duration-500">
+        @if(count($done) >= 1)
           @foreach($done as $task)
             <li class="text-gray-500">✔ {{ $task }}</li>
           @endforeach
