@@ -45,11 +45,14 @@
         </form>
 
         <!-- table container -->
-        <div class="table-container w-full overflow-auto m-auto p-4 max-h-[86vh]">
+        <div class="table-container w-full overflow-auto m-auto p-4 max-h-[86vh] max-w-[80rem]">
             <!-- table -->
             <table class="min-w-full bg-white">
                 <thead class="bg-[#F6A8A8] text-white">
                     <tr>
+                        <th class="px-6">
+                            
+                        </th>
                         @foreach($columns as $column)
                             @if($column == 'stud_id')
                                 <th class="py-2 px-4 border">Student ID</th>
@@ -66,8 +69,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $counter = 1;
+                    @endphp
                     @foreach($users as $user)
                         <tr class="bg-[#FFFFFF]">
+                            <td class="py-2 px-1 text-truncate border text-center">{{ $counter }}</td>
+                            @php
+                                $counter++;
+                            @endphp
                             @foreach($columns as $column)
                                 <td class="py-2 px-1 text-truncate border text-center">
                                     @if(empty($user->$column) && ($column !== 'enrolled'))
