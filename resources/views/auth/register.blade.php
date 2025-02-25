@@ -29,54 +29,62 @@
         <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
         <x-input-error :messages="$errors->get('email')" class="mt-2" />
     </div>
-
-    <!-- Password -->
-    <div class="mt-4">
-        <x-input-label for="password" :value="__('Password')" />
-
-        <x-text-input id="password" class="block mt-1 w-full"
-                        type="password"
-                        name="password"
-                        required autocomplete="new-password" />
-
-        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+    
+    <div class="flex w-full">
+        <!-- Password -->
+        <div class="mt-4 mx-auto ml-0 w-[48%]">
+            <x-input-label for="password" :value="__('Password')" />
+    
+            <x-text-input id="password" class="block mt-1 w-full"
+                            type="password"
+                            name="password"
+                            required autocomplete="new-password" />
+    
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div>
+    
+        <!-- Confirm Password -->
+        <div class="mt-4 mx-auto mr-0 w-[48%]">
+            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+    
+            <x-text-input id="password_confirmation" class="block mt-1 w-full"
+                            type="password"
+                            name="password_confirmation" required autocomplete="new-password" />
+    
+            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        </div>
     </div>
 
-    <!-- Confirm Password -->
-    <div class="mt-4">
-        <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+    <div class="flex w-full">
+        <!-- Program -->
+        <div id="progCont" class="mt-4 hidden mx-auto ml-0 w-[48%]">
+            <x-input-label for="program" :value="__('Program')" />
+            <select id="program" name="program" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500" required>
+                <option value="">Null</option>
+                @foreach($programs as $program)
+                    <option value="{{ $program->program }}">{{ $program->program }}</option>
+                @endforeach
+            </select>
+            <x-input-error :messages="$errors->get('program')" class="mt-2" />
+        </div>
 
-        <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                        type="password"
-                        name="password_confirmation" required autocomplete="new-password" />
-
-        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-    </div>
-
-    <!-- Program -->
-    <div id="progCont" class="mt-4 hidden">
-        <x-input-label for="program" :value="__('Program')" />
-        <select id="program" name="program" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500" required>
-            <option value="">Null</option>
-            @foreach($programs as $program)
-                <option value="{{ $program->program }}">{{ $program->program }}</option>
-            @endforeach
-        </select>
-        <x-input-error :messages="$errors->get('program')" class="mt-2" />
-    </div>
-
-    <!-- Section -->
-    <div id="secCont" class="mt-4 hidden">
-        <x-input-label for="section" :value="__('Section')" />
-        <select id="section" name="section" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500" required>
-            <option value="">Null</option>
-        </select>
-        <x-input-error :messages="$errors->get('section')" class="mt-2" />
+        <!-- Section -->
+        <div id="secCont" class="mt-4 hidden mx-auto mr-0 w-[48%]">
+            <x-input-label for="section" :value="__('Section')" />
+            <select id="section" name="section" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500" required>
+                <option value="">Null</option>
+            </select>
+            <x-input-error :messages="$errors->get('section')" class="mt-2" />
+        </div>
     </div>
 
     <!-- Student ID -->
     <div class="mt-4">
-        <x-input-label for="stud_id" :value="__('ID Number')" />
+        <div class="flex">
+            <x-input-label class="mx-auto ml-2" for="stud_id" :value="__('ID Number')" />
+            <x-input-label class="mx-auto mr-2 opacity-50" for="stud_id" :value="__('**Dont use dash')" />
+
+        </div>
         <x-text-input id="stud_id" class="block mt-1 w-full" type="text" name="stud_id" :value="old('stud_id')" required autocomplete="stud_id" pattern="\d*" title="Only numbers are allowed" />
         <x-input-error :messages="$errors->get('stud_id')" class="mt-2" />
     </div>

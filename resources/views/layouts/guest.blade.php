@@ -16,7 +16,7 @@
     </head>
     <body class="font-sans text-[#5C3C3C] antialiased">
     <div class="min-h-screen flex flex-col items-center justify-center pt-6 sm:pt-4 px-4 bg-gray-100 dark:bg-[#FAD4D4] overflow-hidden">
-        @if (request()->is('login'))
+        @if (request()->is('/'))
         <div class="flex justify-end">
             <img src="{{ asset('images/logincolor.jpg') }}" alt="Login Image" class="z-10 absolute right-0 top-1/2 transform -translate-y-1/2 w-1/3 h-full">
         </div>
